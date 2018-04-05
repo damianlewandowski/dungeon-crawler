@@ -118,6 +118,25 @@ export default class Dungeon {
     }
   }
 
+  bridge(board, width, height, x, y, dir) {
+    switch(dir) {
+      case "top":
+        board[y + height][x] = ROOM;
+        break;
+      case "right":
+        board[y][x - 1] = ROOM;
+        break;
+      case "bottom":
+        board[y - 1][x] = ROOM;
+        break;
+      case "left":
+        board[y][x + width] = ROOM;
+        break;
+      default:
+        console.log("Something went wrong.");
+    }
+  }
+
   // Carves rooms inside the board's walls
   generateRooms = board => {
     const boardCopy = board.map(row => row.slice());
@@ -151,11 +170,9 @@ export default class Dungeon {
         // Randomly pick direction from which start building room
         const randDir = DIRECTIONS[rand(0, DIRECTIONS.length - 1)];
         const { x, y } = this.getRandCoordsFromDir(randDir, randRoom, width, height);
-        // break;
-        console.log(`x:${x}, y:${y}}`);
         if(this.canRoomBeBuilt(boardCopy, x, y, width, height)) {
-          console.log(randDir);
           this.rooms.push(this.buildRoom(boardCopy, x, y, width, height));
+          this.bridge(boardCopy, width, height, x, y, randDir);
           break;
         }
       }
