@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  background: #070707;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);
+  /* background: linear-gradient(to right, #070000, #4C0001, #070000);  */
+  width: 100vw;
+  height: 100vh;
+}
+
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  html {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,16 @@
+.MenuItem {
+  font-size: 1.5rem;
+}
+
+.MenuItem span:hover {
+  color: crimson;
+  cursor: pointer;
+}
+
+.MenuItem:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.MenuItem img {
+  margin: 0 .1rem;
+}

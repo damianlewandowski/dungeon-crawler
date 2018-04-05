@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Permanent Marker";
+  src: url("../fonts/PermanentMarker.ttf");
+}
+
+.Menu {
+  font-family: "Permanent Marker", cursive;
+  color: #fff;
+  text-align: center;
+  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  padding: 3rem 1rem;
+  
+  border: 1px solid #fff;
+  box-shadow: 1px 1px 20px #fff;
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.Menu h1 {
+  font-size: 2.1rem;
+  margin-bottom: 2rem;
+}
+
+.Menu a {
+  color: #fff;
+}
+
+.Menu a:hover {
+  color: #1e90ff;
+}
+
+@media only screen and (min-width: 768px) {
+  .Menu {
+    width: 60%;
+  }
+}

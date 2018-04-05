@@ -1,0 +1,8 @@
+.BoardCells {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  height: 1000px;
+  margin: 100px auto;
+  background: crimson;
+}
