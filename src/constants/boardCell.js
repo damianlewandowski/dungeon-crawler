@@ -4,6 +4,6 @@ export const BORDER = "b";
 export const PLAYER = "p";
 
 export const CELL_DIMENSIONS = {
-  width: "2.5",
-  height: "1.25",
+  width: 2.5,
+  height: 1.25,
 }
