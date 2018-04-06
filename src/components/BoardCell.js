@@ -1,10 +1,5 @@
 import React from 'react';
-import { WALL, ROOM } from '../constants/boardCell';
-
-const COMMON_STYLES = {
-  width: "2%",
-  height: "1%",
-}
+import { WALL, ROOM, PLAYER, CELL_DIMENSIONS } from '../constants/boardCell';
 
 const BoardCell = ({ letter, FOR_DEBUGGING }) => {
   const determineStyle = letter => {
@@ -16,6 +11,10 @@ const BoardCell = ({ letter, FOR_DEBUGGING }) => {
       case ROOM:
         return {
           background: "#fff",
+        }
+      case PLAYER:
+        return {
+          background: "#1e90ff"
         }
       default:
         return {
@@ -35,7 +34,10 @@ const BoardCell = ({ letter, FOR_DEBUGGING }) => {
   const style = determineStyle(letter);
 
   return (
-    <li onClick={onClick} style={{...COMMON_STYLES, ...style}}></li>
+    <li onClick={onClick} style={{
+      width: `${CELL_DIMENSIONS.width}%`,
+      height: `${CELL_DIMENSIONS.height}%`, 
+      ...style}}></li>
   );
 };
 

@@ -11,6 +11,14 @@ export default class Dungeon {
     this.rooms = [];
   }
 
+  getRooms() {
+    if(this.rooms.length === 0) {
+      console.log("You must first generate rooms.");
+      return null;
+    }
+    return this.rooms;
+  }
+
   // Creates brand new 2d array and fills it with walls
   initializeBoard = () => {
     const { rows, cols } = this;
@@ -55,7 +63,6 @@ export default class Dungeon {
 
   // Impure, mutates board array
   buildRoom = (board, x, y, width, height) => {
-    console.log(`x:${x}, y:${y}, width:${width}, height:${height}`);
     const room = {
       // For spawning something in every room
       coords: [],           
@@ -146,7 +153,6 @@ export default class Dungeon {
     const height = rand(5, 12);
     const x = rand(0, boardCopy[0].length - width - 1);
     const y = rand(0, boardCopy.length - height - 1);
-    console.log("FIRST ONE [x, y]", x, y);
     this.rooms.push(
       this.buildRoom(
         boardCopy,
@@ -156,14 +162,13 @@ export default class Dungeon {
         height
       )
     )
-    console.log(this.rooms);
 
     for(let i = 0; i < this.roomsLimit; i++) {
       const width = rand(5, 12);
       const height = rand(5, 12);
 
       //Keep trying to place room in the board next to another one
-      for(let i = 0; i < 100; i++) {
+      for(let i = 0; i < 1000; i++) {
         // Pick random room and try to carve a room next to it
         const randRoom = this.rooms[rand(0, this.rooms.length - 1)]
 

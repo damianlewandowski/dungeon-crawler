@@ -1,2 +1,2 @@
-export const BOARD_SIZE = [100, 50];  // rows, cols     
-export const ROOMS = 10;
+export const BOARD_SIZE = [80, 40];  // rows, cols     
+export const ROOMS = 15;

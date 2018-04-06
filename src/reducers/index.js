@@ -1,9 +1,18 @@
 import { combineReducers } from 'redux';
-import { INITIALIZE_BOARD } from '../actions';
+import { UPDATE_BOARD, UPDATE_ROOMS } from '../actions';
 
 const board = (state = [], action) => {
   switch(action.type) {
-    case INITIALIZE_BOARD: 
+    case UPDATE_BOARD: 
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+const rooms = (state = [], action) => {
+  switch(action.type) {
+    case UPDATE_ROOMS: 
       return action.payload;
     default:
       return state;
@@ -12,4 +21,5 @@ const board = (state = [], action) => {
 
 export default combineReducers({
   board,
+  rooms
 })

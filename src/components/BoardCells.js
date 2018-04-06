@@ -1,9 +1,24 @@
 import React from 'react';
 import BoardCell from '../components/BoardCell';
-import './BoardCells.css';
+import { DIMENSIONS } from '../constants/boardCells';
+import Player from '../containers/Player';
+
+const styles = {
+  position: "relative",
+  display: "flex",
+  flexWrap: "wrap",
+  margin: "100px auto",
+  background: "crimson",
+}
 
 const BoardCells = ({ cells }) => (
-  <ul className="BoardCells">
+  <ul 
+    className="BoardCells"
+    style={{
+      ...styles,
+      ...DIMENSIONS
+    }}
+  >
     {
       cells.map(
         (row, rowi) => (
@@ -19,6 +34,8 @@ const BoardCells = ({ cells }) => (
         )
       )
     }
+
+    <li><Player /></li>
   </ul>
 )
 
