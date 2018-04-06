@@ -1,6 +1,7 @@
 import React from 'react';
 import BoardCell from '../components/BoardCell';
-import { DIMENSIONS } from '../constants/boardCells';
+import { DUNGEON_VIEW, PLAYER_VIEW } from '../constants/boardCells';
+import { PLAYER_VIEW_MODE, DUNGEON_VIEW_MODE } from '../constants/displayModes';
 import Player from '../containers/Player';
 
 const styles = {
@@ -11,13 +12,20 @@ const styles = {
   background: "crimson",
 }
 
-const BoardCells = ({ cells }) => (
+const BoardCells = ({ cells, mode }) => (
   <ul 
     className="BoardCells"
-    style={{
-      ...styles,
-      ...DIMENSIONS
-    }}
+    style={
+      mode === PLAYER_VIEW_MODE
+       ? {
+         ...styles,
+         ...PLAYER_VIEW
+       }
+       : {
+         ...styles,
+         ...DUNGEON_VIEW
+       }
+    }
   >
     {
       cells.map(
@@ -28,6 +36,7 @@ const BoardCells = ({ cells }) => (
                 key={`${rowi}${coli}`}
                 FOR_DEBUGGING={`${rowi} ${coli}`}
                 letter={letter}
+                mode={mode}
               />
             )
           )

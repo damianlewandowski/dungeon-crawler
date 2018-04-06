@@ -1,8 +1,15 @@
 import React from 'react';
-import { WALL, ROOM, PLAYER, CELL_DIMENSIONS } from '../constants/boardCell';
+import { PLAYER_VIEW_MODE } from '../constants/displayModes';
+import { 
+  WALL, 
+  ROOM, 
+  PLAYER, 
+  DUNGEON_CELL_DIMENSIONS,
+  PLAYER_CELL_DIMENSIONS
+} from '../constants/boardCell';
 
-const BoardCell = ({ letter, FOR_DEBUGGING }) => {
-  const determineStyle = letter => {
+const BoardCell = ({ letter, mode, FOR_DEBUGGING }) => {
+  const determineColor = letter => {
     switch(letter) {
       case WALL:
         return {
@@ -31,13 +38,26 @@ const BoardCell = ({ letter, FOR_DEBUGGING }) => {
     console.log(FOR_DEBUGGING);
   }
 
-  const style = determineStyle(letter);
+  const style = determineColor(letter);
 
   return (
-    <li onClick={onClick} style={{
-      width: `${CELL_DIMENSIONS.width}%`,
-      height: `${CELL_DIMENSIONS.height}%`, 
-      ...style}}></li>
+    <li 
+      onClick={onClick} 
+      style={
+        mode === PLAYER_VIEW_MODE
+          ? {
+            width: `${PLAYER_CELL_DIMENSIONS.width}%`,
+            height: `${PLAYER_CELL_DIMENSIONS.height}%`, 
+            ...style
+          }
+          : {
+            width: `${DUNGEON_CELL_DIMENSIONS.width}%`,
+            height: `${DUNGEON_CELL_DIMENSIONS.height}%`, 
+            ...style
+          }
+      }
+    >
+    </li>
   );
 };
 

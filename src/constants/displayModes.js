@@ -1,0 +1,2 @@
+export const PLAYER_VIEW_MODE = "PLAYER_VIEW_MODE";
+export const DUNGEON_VIEW_MODE = "DUNGEON_VIEW_MODE";

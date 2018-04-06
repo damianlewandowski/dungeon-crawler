@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
-import { CELL_DIMENSIONS, WALL } from '../constants/boardCell';
+import { UPDATE_PLAYER_POS, updatePlayerPos } from '../actions';
+import { DUNGEON_CELL_DIMENSIONS, WALL } from '../constants/boardCell';
+import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { rand } from '../util/util';
 
 class Player extends Component {
@@ -12,49 +14,49 @@ class Player extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", e => {
+      const { playerPos, dispatch } = this.props;
+      const [x, y] = playerPos;
+
       switch(e.keyCode) {
         case 37:
           if(this.canMove(e.keyCode)) {
-            this.setState(prevProps => ({
-              left: prevProps.left - CELL_DIMENSIONS.width
-            }))
+            dispatch(
+              updatePlayerPos([x - 1, y])
+            )
           }      
           e.preventDefault();
           break;
-          case 38:
-            if(this.canMove(e.keyCode)) {
-              this.setState(prevProps => ({
-                top: prevProps.top - CELL_DIMENSIONS.height
-              }))
-            }   
-            e.preventDefault()
-            break;
-          case 39:
-            if(this.canMove(e.keyCode)) {
-              this.setState(prevProps => ({
-                left: prevProps.left + CELL_DIMENSIONS.width
-              }))
-            }
-            e.preventDefault();
-            break;
-          case 40:
-            if(this.canMove(e.keyCode)) {
-              this.setState(prevProps => ({
-                top: prevProps.top + CELL_DIMENSIONS.height
-              }))
-            }
-            e.preventDefault()
-            break;
+        case 38:
+          if(this.canMove(e.keyCode)) {
+            dispatch(
+              updatePlayerPos([x, y - 1])
+            )
+          }   
+          e.preventDefault()
+          break;
+        case 39:
+          if(this.canMove(e.keyCode)) {
+            dispatch(
+              updatePlayerPos([x + 1, y])
+            )
+          }
+          e.preventDefault();
+          break;
+        case 40:
+          if(this.canMove(e.keyCode)) {
+            dispatch(
+              updatePlayerPos([x, y + 1])
+            )
+          }
+          e.preventDefault()
+          break;
       }
     })
   }
 
   canMove = dir => {
     const { board } = this.props;
-    const { top, left } = this.state;
-    const row = top / CELL_DIMENSIONS.height;
-    const col = left / CELL_DIMENSIONS.width;
-    console.log(row, col);
+    const [col, row] = this.props.playerPos
 
     switch(dir) {
       case 37:
@@ -82,23 +84,35 @@ class Player extends Component {
 
   // Will run only when generating new dungeon
   componentWillReceiveProps(nextProps) {
-    const { rooms } = nextProps;
-    const room = rooms[rand(0, rooms.length - 1)];
-    const randCoords = room.coords[rand(0, room.coords.length - 1)];
-    this.setState({
-      left: randCoords[0] * CELL_DIMENSIONS.width,
-      top: randCoords[1] * CELL_DIMENSIONS.height,
-    })
-    console.log("eh");
+    if(nextProps.playerPos.length === 0) {
+      const { rooms } = nextProps;
+      const room = rooms[rand(0, rooms.length - 1)];
+      const randCoords = room.coords[rand(0, room.coords.length - 1)];
+      this.props.dispatch(updatePlayerPos(randCoords))
+    }
   }
 
   render() {
+    const [x, y] = this.props.playerPos;
+    const { mode } = this.props;
+    // const top = y * DUNGEON_CELL_DIMENSIONS.height;
+    // const left = x * DUNGEON_CELL_DIMENSIONS.width;
+    const [left, top] = mode === PLAYER_VIEW_MODE 
+      ? [50, 50]
+      : [
+        x * DUNGEON_CELL_DIMENSIONS.width,
+        y * DUNGEON_CELL_DIMENSIONS.height
+      ]
+
     return (
       <div>
-        <PlayerCell positionStyles={{
-          left: `${this.state.left}%`,
-          top: `${this.state.top}%`,
-        }} />
+        <PlayerCell
+          mode={mode} 
+          positionStyles={{
+          left: `${left}%`,
+          top: `${top}%`,
+          }} 
+        />
       </div>
     );
   }
@@ -107,6 +121,8 @@ class Player extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   board: state.board,
+  playerPos: state.playerPos,
+  mode: state.displayMode
 })
 
 export default connect(mapStateToProps)(Player);
