@@ -13,7 +13,6 @@ const styles = {
 }
 class BoardCells extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps);
     if(nextProps.mode === PLAYER_VIEW_MODE) {
       return true;
     }

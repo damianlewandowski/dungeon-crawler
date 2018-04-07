@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
 import { updatePlayerPos } from '../actions';
-import { DUNGEON_CELL_DIMENSIONS, WALL } from '../constants/boardCell';
+import { BOARD_SIZE } from '../constants/board';
+import { 
+  DUNGEON_CELL_DIMENSIONS,
+  PLAYER_CELL_DIMENSIONS,
+  WALL } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { rand } from '../util/util';
 
@@ -87,16 +91,27 @@ class Player extends Component {
   }
 
   calculateDisplayedPos = (mode) => {
-    const [x, y] = this.props.playerPos;    
-    
+    const [x, y] = this.props.playerPos;
+    const { width, height } = PLAYER_CELL_DIMENSIONS
+    console.log(`x:${x}, y:${y}`);
     if(mode === PLAYER_VIEW_MODE) {
+      const [rows, cols] = BOARD_SIZE;
+      let left = 50;
+      let top = 50;
+
       if(x < 5) {
-        return [
-          x * 10,
-          50
-        ]
+        left = x * width;
+      } else if(x > cols - 5) {
+        left = 100 - (cols - x) * 10;
       }
-      return [50, 50]
+
+      if(y < 5) {
+        top = y * height;
+      } else if(y > rows - 5) {
+        top = 100 - (rows - y) * 10;
+      }
+
+      return [left, top]
     }
 
     return [

@@ -4,7 +4,6 @@ import BoardCells from '../components/BoardCells';
 import { updateBoard, updateRooms } from '../actions';
 import { BOARD_SIZE, ROOMS } from '../constants/board';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
-import { BORDER } from '../constants/boardCell'
 import Dungeon from '../util/Dungeon';
 
 class Board extends Component {
@@ -20,11 +19,24 @@ class Board extends Component {
   calculateCellsToRender(displayMode) {
     const { playerPos, cells } = this.props;
     const [x, y] = playerPos;
+    const [rows, cols] = BOARD_SIZE;
     // Display only a couple of blocks around the player    
     if(displayMode === PLAYER_VIEW_MODE) {
+      let xBorderAlignment = 0;
+      if(x < 5) {
+        xBorderAlignment = 5 - x;
+      } else if(x > cols - 5) {
+        xBorderAlignment = cols - x - 5;
+      }
+      let yBorderAlignment = 0;
+      if(y < 5) {
+        yBorderAlignment = 5 - y;
+      } else if(y > rows - 5) {
+        yBorderAlignment = rows - y - 5;
+      }
       return cells
-        .slice(y - 5, y + 5)
-        .map(row => row.slice(x - 5, x + 5))
+        .slice(y - 5 + yBorderAlignment, y + 5 + yBorderAlignment)
+        .map(row => row.slice(x - 5 + xBorderAlignment, x + 5 + xBorderAlignment))
     }
 
     return cells;
