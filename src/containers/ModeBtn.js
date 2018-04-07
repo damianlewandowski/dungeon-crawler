@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { changeDisplayMode } from '../actions';
 import { DUNGEON_VIEW_MODE, PLAYER_VIEW_MODE } from '../constants/displayModes';

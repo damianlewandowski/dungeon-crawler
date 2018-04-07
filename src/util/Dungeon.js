@@ -43,7 +43,7 @@ export default class Dungeon {
       for(let j = x; j < x + width; j++) {
         // Make sure rooms are not touching each other
         if(
-          i === 0 ||
+          i === 0 || j === 0 ||
           (board[i] && board[i][j] && board[i][j] !== WALL) ||
           (board[i] && board[i][j - 1] && board[i][j - 1] !== WALL) ||
           (board[i] && board[i][j + 1] && board[i][j + 1] !== WALL) ||

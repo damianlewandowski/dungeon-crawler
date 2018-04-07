@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
-import { UPDATE_PLAYER_POS, updatePlayerPos } from '../actions';
+import { updatePlayerPos } from '../actions';
 import { DUNGEON_CELL_DIMENSIONS, WALL } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { rand } from '../util/util';
@@ -50,6 +50,8 @@ class Player extends Component {
           }
           e.preventDefault()
           break;
+        default:
+          break;
       }
     })
   }
@@ -79,7 +81,28 @@ class Player extends Component {
           return false;
         } 
         return true;
+      default:
+        break;
     }
+  }
+
+  calculateDisplayedPos = (mode) => {
+    const [x, y] = this.props.playerPos;    
+    
+    if(mode === PLAYER_VIEW_MODE) {
+      if(x < 5) {
+        return [
+          x * 10,
+          50
+        ]
+      }
+      return [50, 50]
+    }
+
+    return [
+      x * DUNGEON_CELL_DIMENSIONS.width,
+      y * DUNGEON_CELL_DIMENSIONS.height
+    ]
   }
 
   // Will run only when generating new dungeon
@@ -93,16 +116,10 @@ class Player extends Component {
   }
 
   render() {
-    const [x, y] = this.props.playerPos;
     const { mode } = this.props;
     // const top = y * DUNGEON_CELL_DIMENSIONS.height;
     // const left = x * DUNGEON_CELL_DIMENSIONS.width;
-    const [left, top] = mode === PLAYER_VIEW_MODE 
-      ? [50, 50]
-      : [
-        x * DUNGEON_CELL_DIMENSIONS.width,
-        y * DUNGEON_CELL_DIMENSIONS.height
-      ]
+    const [left, top] = this.calculateDisplayedPos(mode)
 
     return (
       <div>

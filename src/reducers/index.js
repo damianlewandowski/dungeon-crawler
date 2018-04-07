@@ -5,8 +5,7 @@ import {
   UPDATE_PLAYER_POS,
   CHANGE_DISPLAY_MODE,
 } from '../actions';
-import { PLAYER_VIEW_MODE, DUNGEON_VIEW_MODE } from '../constants/displayModes';
-import { PLAYER } from '../constants/boardCell';
+import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 
 const board = (state = [], action) => {
   switch(action.type) {
@@ -35,7 +34,7 @@ const playerPos = (state = [], action) => {
   }
 }
 
-const displayMode = (state = DUNGEON_VIEW_MODE, action) => {
+const displayMode = (state = PLAYER_VIEW_MODE, action) => {
   switch(action.type) {
     case CHANGE_DISPLAY_MODE:
       return action.payload;

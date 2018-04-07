@@ -6,7 +6,7 @@ const configureStore = () => {
   const store = createStore(
     rootReducer,
     compose(
-      applyMiddleware(logger),
+      // applyMiddleware(logger),
       window.__REDUX_DEVTOOLS_EXTENSION__ &&  // Redux debugger in chrome
       window.__REDUX_DEVTOOLS_EXTENSION__()
     )

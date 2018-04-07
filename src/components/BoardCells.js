@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import BoardCell from '../components/BoardCell';
 import { DUNGEON_VIEW, PLAYER_VIEW } from '../constants/boardCells';
-import { PLAYER_VIEW_MODE, DUNGEON_VIEW_MODE } from '../constants/displayModes';
+import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import Player from '../containers/Player';
 
 const styles = {
@@ -11,41 +11,56 @@ const styles = {
   margin: "100px auto",
   background: "crimson",
 }
-
-const BoardCells = ({ cells, mode }) => (
-  <ul 
-    className="BoardCells"
-    style={
-      mode === PLAYER_VIEW_MODE
-       ? {
-         ...styles,
-         ...PLAYER_VIEW
-       }
-       : {
-         ...styles,
-         ...DUNGEON_VIEW
-       }
+class BoardCells extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps);
+    if(nextProps.mode === PLAYER_VIEW_MODE) {
+      return true;
     }
-  >
-    {
-      cells.map(
-        (row, rowi) => (
-          row.map(
-            (letter, coli) => (
-              <BoardCell 
-                key={`${rowi}${coli}`}
-                FOR_DEBUGGING={`${rowi} ${coli}`}
-                letter={letter}
-                mode={mode}
-              />
+    if(nextProps.mode !== this.props.mode) {
+      return true;
+    }
+    return false;
+  }
+
+  render() {
+    const { cells, mode } = this.props
+    return (
+      <ul 
+        className="BoardCells"
+        style={
+          mode === PLAYER_VIEW_MODE
+          ? {
+            ...styles,
+            ...PLAYER_VIEW
+          }
+          : {
+            ...styles,
+            ...DUNGEON_VIEW
+          }
+        }
+      >
+        {
+          cells.map(
+            (row, rowi) => (
+              row.map(
+                (letter, coli) => (
+                  <BoardCell 
+                    key={`${rowi}${coli}`}
+                    FOR_DEBUGGING={`${rowi} ${coli}`}
+                    letter={letter}
+                    mode={mode}
+                  />
+                )
+              )
             )
           )
-        )
-      )
-    }
+        }
 
-    <li><Player /></li>
-  </ul>
-)
+        <li><Player /></li>
+      </ul>
+    )
+  }
+}
 
 export default BoardCells;
