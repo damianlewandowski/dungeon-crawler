@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import { 
   UPDATE_BOARD, 
-  UPDATE_ROOMS, 
+  UPDATE_ROOMS,
+  UPDATE_PLAYER_HP,
   UPDATE_PLAYER_POS,
   CHANGE_DISPLAY_MODE,
   UPDATE_ENEMIES
@@ -20,6 +21,15 @@ const board = (state = [], action) => {
 const rooms = (state = [], action) => {
   switch(action.type) {
     case UPDATE_ROOMS: 
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+const playerHp = (state = 0, action) => {
+  switch(action.type) {
+    case UPDATE_PLAYER_HP:
       return action.payload;
     default:
       return state;
@@ -58,5 +68,6 @@ export default combineReducers({
   rooms,
   playerPos,
   displayMode,
-  enemies
+  enemies,
+  playerHp
 })

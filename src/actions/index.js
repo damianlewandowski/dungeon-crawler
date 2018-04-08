@@ -1,5 +1,6 @@
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const UPDATE_ROOMS = "UPDATE_ROOMS";
+export const UPDATE_PLAYER_HP = "UPDATE_PLAYER_HP"
 export const UPDATE_PLAYER_POS = "UPDATE_PLAYER_POS";
 export const CHANGE_DISPLAY_MODE = "CHANGE_DISPLAY_MODE";
 export const UPDATE_ENEMIES = "UPDATE_ENEMIES";
@@ -27,4 +28,9 @@ export const changeDisplayMode = mode => ({
 export const updateEnemies = enemies => ({
   type: UPDATE_ENEMIES,
   payload: enemies,
+})
+
+export const updatePlayerHp = hp => ({
+  type: UPDATE_PLAYER_HP,
+  payload: hp
 })

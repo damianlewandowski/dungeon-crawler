@@ -7,6 +7,7 @@ import {
   PLAYER_CELL_DIMENSIONS,
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
+import { BOARD_SIZE } from '../constants/board';
 import { rand } from '../util/util';
 
 class Enemies extends Component {
@@ -30,6 +31,27 @@ class Enemies extends Component {
       return enemies;
     }, [])
   }
+
+  determinePosition(playerX, playerY, enemyX, enemyY) {
+    const [rows, cols] = BOARD_SIZE
+    const { width, height } = PLAYER_CELL_DIMENSIONS;
+    let left = 50 - (playerX - enemyX) * 10;
+    let top = 50 - (playerY - enemyY) * 10;
+    
+    if(playerX < 5) {
+      left = (playerX * width) - (playerX - enemyX) * 10;
+    } else if(playerX > cols - 5) {
+      left = (100 - (cols - playerX) * 10) - (playerX - enemyX) * 10;
+    }
+
+    if(playerY < 5) {
+      top = (playerY * height) - (playerY - enemyY) * 10;
+    } else if(playerY > rows - 5) {
+      top = (100 - (rows - playerY) * 10) - (playerY - enemyY) * 10;
+    }
+
+    return [left, top];
+  }
   
   render() {
     const { enemies, mode, playerPos } = this.props;
@@ -48,20 +70,23 @@ class Enemies extends Component {
                 enemyY >= playerY - 5 &&
                 enemyY <= playerY + 4
               ) {
-                console.log(PLAYER_CELL_DIMENSIONS.width);
-                console.log(Math.abs(playerY - enemyY) * 10);
+                
+                const [left, top] = this.determinePosition(playerX, playerY, enemyX, enemyY);
+
                 return (
                   <EnemyCell 
                     key={i}
                     posStyle={{
-                      left: `${50 - (playerX - enemyX) * 10}%`,
-                      top: `${50 - (playerY - enemyY) * 10}%`,
+                      left: `${left}%`,
+                      top: `${top}%`,
                       width: `${PLAYER_CELL_DIMENSIONS.width}%`,
                       height: `${PLAYER_CELL_DIMENSIONS.height}%`,
                     }}
                   />
                 )
-              }    
+              }
+              // Don't render anything
+              return null;
             } else {
                 return (
                   <EnemyCell 

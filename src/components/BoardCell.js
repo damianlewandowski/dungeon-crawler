@@ -9,7 +9,7 @@ import {
   PLAYER_CELL_DIMENSIONS
 } from '../constants/boardCell';
 
-const BoardCell = ({ letter, mode, FOR_DEBUGGING, calculateCellBrightness }) => {
+const BoardCell = ({ letter, mode }) => {
   const determineColor = letter => {
     switch(letter) {
       case WALL:
@@ -31,19 +31,10 @@ const BoardCell = ({ letter, mode, FOR_DEBUGGING, calculateCellBrightness }) => 
     }
   }
 
-  // TODO
-  // FOR DEBUGGING
-  // REMOVE WHEN FINMISHED
-  // I AM SERIOUS REMOVE IT!!
-  const onClick = () => {
-    console.log(FOR_DEBUGGING);
-  }
-
   const style = determineColor(letter);
 
   return (
     <li 
-      onClick={calculateCellBrightness} 
       style={
         mode === PLAYER_VIEW_MODE
           ? {

@@ -54,12 +54,7 @@ class BoardCells extends Component {
               row.map(
                 (letter, coli) => (
                   <BoardCell
-                    calculateCellBrightness={() => this.props.calculateCellBrightness(
-                      rowi,
-                      coli
-                    )}
                     key={`${rowi}${coli}`}
-                    FOR_DEBUGGING={`${rowi} ${coli}`}
                     letter={letter}
                     mode={mode}
                   />
