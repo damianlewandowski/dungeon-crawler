@@ -11,9 +11,6 @@ import { BOARD_SIZE } from '../constants/board';
 import { rand } from '../util/util';
 
 class Enemies extends Component {
-  componentDidMount() {
-  }
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.enemies.length === 0) {
       const enemies = this.spawnEnemies(nextProps.rooms);
@@ -26,8 +23,13 @@ class Enemies extends Component {
     return rooms.reduce((enemies, room) => {
       const { coords } = room;
       for(let i = 0; i < rand(1, 2); i++) {
-        const randCoords = coords.splice(rand(0, coords.length - 1), 1)
-        enemies.push(...randCoords)
+        const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
+        const enemy = {
+          hp: 10,
+          level: 1,
+          coordinates: randCoords
+        }
+        enemies.push(enemy)
       } 
       return enemies;
     }, [])
@@ -56,13 +58,11 @@ class Enemies extends Component {
   
   render() {
     const { enemies, mode, playerPos } = this.props;
-    console.log(enemies);
     return (
       <ul>
         {
-          enemies.map((coords, i) => {
-            const [enemyX, enemyY] = coords;
-            
+          enemies.map((enemy, i) => {
+            const [enemyX, enemyY] = enemy.coordinates;
             if(mode === PLAYER_VIEW_MODE) {
               const [playerX, playerY] = playerPos;
 

@@ -60,10 +60,8 @@ class Player extends Component {
     })
   }
 
-  canMove = dir => {
-    const { board } = this.props;
-    const [col, row] = this.props.playerPos
-
+  checkWall(dir, col, row) {
+    const { board } = this.props;    
     switch(dir) {
       case 37:
         if(board[row][col - 1] === WALL) {
@@ -90,10 +88,70 @@ class Player extends Component {
     }
   }
 
+  checkEnemy(dir, playerCol, playerRow) {
+  
+    const { enemies } = this.props;
+    const coordinates = enemies.reduce((coords, enemy) => {
+      return [...coords, [...enemy.coordinates]]
+    }, [])
+
+    for(let i = 0; i < coordinates.length; i++) {
+      const [enemyCol, enemyRow] = coordinates[i];
+
+      switch(dir) {
+        case 37:
+          if(
+            playerRow === enemyRow &&
+            playerCol - 1 === enemyCol
+          ) {
+            return false;
+          }
+          break;
+        case 38:
+          if(
+            playerRow - 1 === enemyRow &&
+            playerCol === enemyCol
+          ) {
+            return false;
+          }
+          break;
+        case 39:
+          if(
+            playerRow === enemyRow &&
+            playerCol + 1 === enemyCol
+          ) {
+            return false;
+          }
+          break;
+        case 40:
+          if(
+            playerRow + 1 === enemyRow &&
+            playerCol === enemyCol
+          ) {
+            return false;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    return true;
+  }
+
+  canMove = dir => {
+    const [col, row] = this.props.playerPos
+
+    const isWallThere = this.checkWall(dir, col, row);
+    const isEnemyThere = this.checkEnemy(dir, col, row)
+
+    return isWallThere && isEnemyThere;
+  }
+
   calculateDisplayedPos = (mode) => {
     const [x, y] = this.props.playerPos;
     const { width, height } = PLAYER_CELL_DIMENSIONS
-    
+
     if(mode === PLAYER_VIEW_MODE) {
       const [rows, cols] = BOARD_SIZE;
       let left = 50;
@@ -151,7 +209,8 @@ const mapStateToProps = state => ({
   rooms: state.rooms,
   board: state.board,
   playerPos: state.playerPos,
-  mode: state.displayMode
+  mode: state.displayMode,
+  enemies: state.enemies
 })
 
 export default connect(mapStateToProps)(Player);
