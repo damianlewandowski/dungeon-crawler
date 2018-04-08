@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BoardCell from '../components/BoardCell';
 import { DUNGEON_VIEW, PLAYER_VIEW } from '../constants/boardCells';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import Player from '../containers/Player';
+import Enemies from '../containers/Enemies';
 
 const styles = {
   position: "relative",
@@ -11,7 +13,14 @@ const styles = {
   margin: "100px auto",
   background: "crimson",
 }
+
 class BoardCells extends Component {
+  static propTypes = {
+    cells: PropTypes.array.isRequired,
+    mode: PropTypes.string.isRequired,
+    calculateCellBrightness: PropTypes.func.isRequired,
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     if(nextProps.mode === PLAYER_VIEW_MODE) {
       return true;
@@ -44,7 +53,11 @@ class BoardCells extends Component {
             (row, rowi) => (
               row.map(
                 (letter, coli) => (
-                  <BoardCell 
+                  <BoardCell
+                    calculateCellBrightness={() => this.props.calculateCellBrightness(
+                      rowi,
+                      coli
+                    )}
                     key={`${rowi}${coli}`}
                     FOR_DEBUGGING={`${rowi} ${coli}`}
                     letter={letter}
@@ -57,6 +70,7 @@ class BoardCells extends Component {
         }
 
         <li><Player /></li>
+        <li><Enemies /></li>
       </ul>
     )
   }

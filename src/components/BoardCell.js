@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { 
   WALL, 
@@ -8,7 +9,7 @@ import {
   PLAYER_CELL_DIMENSIONS
 } from '../constants/boardCell';
 
-const BoardCell = ({ letter, mode, FOR_DEBUGGING }) => {
+const BoardCell = ({ letter, mode, FOR_DEBUGGING, calculateCellBrightness }) => {
   const determineColor = letter => {
     switch(letter) {
       case WALL:
@@ -42,7 +43,7 @@ const BoardCell = ({ letter, mode, FOR_DEBUGGING }) => {
 
   return (
     <li 
-      onClick={onClick} 
+      onClick={calculateCellBrightness} 
       style={
         mode === PLAYER_VIEW_MODE
           ? {
@@ -60,5 +61,10 @@ const BoardCell = ({ letter, mode, FOR_DEBUGGING }) => {
     </li>
   );
 };
+
+BoardCell.propTypes = {
+  letter: PropTypes.string.isRequired,
+  mode: PropTypes.string.isRequired,
+}
 
 export default BoardCell;

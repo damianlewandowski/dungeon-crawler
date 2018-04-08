@@ -93,7 +93,7 @@ class Player extends Component {
   calculateDisplayedPos = (mode) => {
     const [x, y] = this.props.playerPos;
     const { width, height } = PLAYER_CELL_DIMENSIONS
-    console.log(`x:${x}, y:${y}`);
+    
     if(mode === PLAYER_VIEW_MODE) {
       const [rows, cols] = BOARD_SIZE;
       let left = 50;
@@ -120,7 +120,6 @@ class Player extends Component {
     ]
   }
 
-  // Will run only when generating new dungeon
   componentWillReceiveProps(nextProps) {
     if(nextProps.playerPos.length === 0) {
       const { rooms } = nextProps;
@@ -132,8 +131,6 @@ class Player extends Component {
 
   render() {
     const { mode } = this.props;
-    // const top = y * DUNGEON_CELL_DIMENSIONS.height;
-    // const left = x * DUNGEON_CELL_DIMENSIONS.width;
     const [left, top] = this.calculateDisplayedPos(mode)
 
     return (
