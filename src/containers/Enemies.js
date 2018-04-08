@@ -26,7 +26,8 @@ class Enemies extends Component {
     return rooms.reduce((enemies, room) => {
       const { coords } = room;
       for(let i = 0; i < rand(1, 2); i++) {
-        enemies.push(coords[rand(0, coords.length - 1)]);
+        const randCoords = coords.splice(rand(0, coords.length - 1), 1)
+        enemies.push(...randCoords)
       } 
       return enemies;
     }, [])
@@ -55,7 +56,7 @@ class Enemies extends Component {
   
   render() {
     const { enemies, mode, playerPos } = this.props;
-
+    console.log(enemies);
     return (
       <ul>
         {
@@ -64,13 +65,13 @@ class Enemies extends Component {
             
             if(mode === PLAYER_VIEW_MODE) {
               const [playerX, playerY] = playerPos;
+
               if(
                 enemyX >= playerX - 5 &&
                 enemyX <= playerX + 4 &&
                 enemyY >= playerY - 5 &&
                 enemyY <= playerY + 4
-              ) {
-                
+              ) {              
                 const [left, top] = this.determinePosition(playerX, playerY, enemyX, enemyY);
 
                 return (
