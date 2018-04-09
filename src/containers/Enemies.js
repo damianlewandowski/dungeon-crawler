@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateEnemies } from '../actions';
+import { initializeEnemies } from '../actions';
 import EnemyCell from '../components/EnemyCell';
 import { 
   DUNGEON_CELL_DIMENSIONS,
@@ -14,17 +14,18 @@ class Enemies extends Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.enemies.length === 0) {
       const enemies = this.spawnEnemies(nextProps.rooms);
-      this.props.dispatch(updateEnemies(enemies));
+      this.props.dispatch(initializeEnemies(enemies));
     }
   }
 
   // Spawn 1 - 2 enemies in each room  
   spawnEnemies = rooms => {
-    return rooms.reduce((enemies, room) => {
+    return rooms.reduce((enemies, room, enemyId) => {
       const { coords } = room;
       for(let i = 0; i < rand(1, 2); i++) {
         const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
         const enemy = {
+          id: `${enemyId}${i}`,
           hp: 10,
           level: 1,
           coordinates: randCoords

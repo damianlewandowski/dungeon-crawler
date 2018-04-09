@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
+import { enemies } from './enemies';
 import { 
   UPDATE_BOARD, 
   UPDATE_ROOMS,
   UPDATE_PLAYER_HP,
   UPDATE_PLAYER_POS,
   CHANGE_DISPLAY_MODE,
-  UPDATE_ENEMIES
 } from '../actions';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 
@@ -48,15 +48,6 @@ const playerPos = (state = [], action) => {
 const displayMode = (state = PLAYER_VIEW_MODE, action) => {
   switch(action.type) {
     case CHANGE_DISPLAY_MODE:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-const enemies = (state = [], action) => {
-  switch(action.type) {
-    case UPDATE_ENEMIES:
       return action.payload;
     default:
       return state;

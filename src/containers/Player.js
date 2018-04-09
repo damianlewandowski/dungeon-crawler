@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
-import { updatePlayerPos } from '../actions';
+import { 
+  updatePlayerPos, 
+  updateEnemyHp, 
+  killEnemy 
+} from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
   DUNGEON_CELL_DIMENSIONS,
   PLAYER_CELL_DIMENSIONS,
-  WALL } from '../constants/boardCell';
+  WALL 
+} from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { rand } from '../util/util';
 
 class Player extends Component {
-  state = {
-    left: 0,
-    top: 0,
-  }
-
   componentDidMount() {
     document.addEventListener("keydown", e => {
       const { playerPos, dispatch } = this.props;
@@ -88,15 +88,10 @@ class Player extends Component {
     }
   }
 
-  checkEnemy(dir, playerCol, playerRow) {
-  
-    const { enemies } = this.props;
-    const coordinates = enemies.reduce((coords, enemy) => {
-      return [...coords, [...enemy.coordinates]]
-    }, [])
-
-    for(let i = 0; i < coordinates.length; i++) {
-      const [enemyCol, enemyRow] = coordinates[i];
+  checkForEnemies(dir, enemies, playerCol, playerRow) {  
+    for(let i = 0; i < enemies.length; i++) {
+      const enemy = enemies[i];
+      const [enemyCol, enemyRow] = enemy.coordinates;
 
       switch(dir) {
         case 37:
@@ -104,7 +99,7 @@ class Player extends Component {
             playerRow === enemyRow &&
             playerCol - 1 === enemyCol
           ) {
-            return false;
+            return enemy.id;
           }
           break;
         case 38:
@@ -112,7 +107,7 @@ class Player extends Component {
             playerRow - 1 === enemyRow &&
             playerCol === enemyCol
           ) {
-            return false;
+            return enemy.id;
           }
           break;
         case 39:
@@ -120,7 +115,7 @@ class Player extends Component {
             playerRow === enemyRow &&
             playerCol + 1 === enemyCol
           ) {
-            return false;
+            return enemy.id;
           }
           break;
         case 40:
@@ -128,7 +123,7 @@ class Player extends Component {
             playerRow + 1 === enemyRow &&
             playerCol === enemyCol
           ) {
-            return false;
+            return enemy.id;
           }
           break;
         default:
@@ -136,16 +131,33 @@ class Player extends Component {
       }
     }
 
-    return true;
+    return false;
+  }
+
+  fightEnemy = (enemyId) => {
+    const { enemies, dispatch } = this.props;
+    const enemy = enemies.find(enemy => enemy.id === enemyId)
+    const newEnemyHp = enemy.hp - 1;
+    console.log(newEnemyHp);
+    if(newEnemyHp < 1) {
+      dispatch(killEnemy(enemyId))
+    } else {
+      dispatch(updateEnemyHp(enemyId, enemy.hp - 1))
+    }
   }
 
   canMove = dir => {
     const [col, row] = this.props.playerPos
+    const { enemies } = this.props;
 
     const isWallThere = this.checkWall(dir, col, row);
-    const isEnemyThere = this.checkEnemy(dir, col, row)
+    const enemyId = this.checkForEnemies(dir, enemies, col, row)
 
-    return isWallThere && isEnemyThere;
+    if(enemyId) {
+      this.fightEnemy(enemyId, enemies);
+    }
+
+    return isWallThere && !enemyId;
   }
 
   calculateDisplayedPos = (mode) => {
