@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
 import { 
-  updatePlayerPos, 
+  updatePlayerPos,
+  updatePlayerHp,
+  updatePlayerExp,
   updateEnemyHp, 
   killEnemy 
 } from '../actions';
@@ -135,14 +137,43 @@ class Player extends Component {
   }
 
   fightEnemy = (enemyId) => {
-    const { enemies, dispatch } = this.props;
+    const { 
+      enemies, 
+      dispatch, 
+      weapon, 
+      playerHp, 
+      playerLevel,
+      playerExp,
+    } = this.props;
     const enemy = enemies.find(enemy => enemy.id === enemyId)
-    const newEnemyHp = enemy.hp - 1;
-    console.log(newEnemyHp);
-    if(newEnemyHp < 1) {
-      dispatch(killEnemy(enemyId))
+    const newPlayerHp = playerHp - enemy.attack[rand(0, 1)];    
+    const newEnemyHp = enemy.hp - weapon.damage * playerLevel;    
+
+    // Decide randomly who attacks first
+    const turn = rand(1, 2);
+    // Player attacks first
+    if(turn === 1) {
+      // Check if enemy was killed
+      if(newEnemyHp < 1) {
+        dispatch(updatePlayerExp(playerExp + enemy.level * 10))            
+        dispatch(killEnemy(enemyId));
+      } else {
+        dispatch(updateEnemyHp(enemyId, newEnemyHp))
+        dispatch(updatePlayerHp(newPlayerHp));
+      }
+    // Enemy atacks first
     } else {
-      dispatch(updateEnemyHp(enemyId, enemy.hp - 1))
+      const newPlayerHp = playerHp - enemy.attack[rand(0, 1)];
+      dispatch(updateEnemyHp(enemyId, newEnemyHp))
+      dispatch(updatePlayerHp(newPlayerHp));
+      if(newEnemyHp < 1) {
+        dispatch(updatePlayerExp(playerExp + enemy.level * 10))    
+        dispatch(killEnemy(enemyId))
+      }
+    }
+
+    if(newPlayerHp < 1) {
+      alert("You dead :(")
     }
   }
 
@@ -220,7 +251,12 @@ class Player extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   board: state.board,
-  playerPos: state.player.playerPos,
+  playerPos: state.player.pos,
+  weapon: state.player.weapon,
+  armor: state.player.armor,
+  playerLevel: state.player.level,
+  playerHp: state.player.hp,
+  playerExp: state.player.exp,
   mode: state.displayMode,
   enemies: state.enemies
 })

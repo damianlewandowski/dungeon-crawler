@@ -8,6 +8,7 @@ import {
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { BOARD_SIZE } from '../constants/board';
+import ENEMIES from '../constants/enemies';
 import { rand } from '../util/util';
 
 class Enemies extends Component {
@@ -26,8 +27,9 @@ class Enemies extends Component {
         const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
         const enemy = {
           id: `${enemyId}${i}`,
-          hp: 10,
-          level: 1,
+          hp: 5,
+          attack: [ENEMIES[0].level * 5, ENEMIES[0].level * 7],
+          level: ENEMIES[0].level,
           coordinates: randCoords
         }
         enemies.push(enemy)
@@ -112,7 +114,7 @@ class Enemies extends Component {
 const mapStateToProps = state => {
   return {
     enemies: state.enemies,
-    playerPos: state.player.playerPos,
+    playerPos: state.player.pos,
     rooms: state.rooms,
     mode: state.displayMode,
   }

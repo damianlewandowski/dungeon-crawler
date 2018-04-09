@@ -1,0 +1,17 @@
+.PlayerStatsList {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  width: 400px;
+  margin: 5px auto;
+  color: #fff;
+}
+
+.PlayerStatsList h4 {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.PlayerStatsList li {
+  text-align: center;
+}

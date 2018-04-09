@@ -1,5 +1,12 @@
 .container {
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80%;
   height: 100vh;
+  margin: 0 auto;
+}
+
+.game-window {
+  margin: 20px;
 }

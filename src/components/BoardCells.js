@@ -10,7 +10,7 @@ const styles = {
   position: "relative",
   display: "flex",
   flexWrap: "wrap",
-  margin: "100px auto",
+  margin: "0 auto",
   background: "crimson",
 }
 
