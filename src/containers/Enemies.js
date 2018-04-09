@@ -112,7 +112,7 @@ class Enemies extends Component {
 const mapStateToProps = state => {
   return {
     enemies: state.enemies,
-    playerPos: state.playerPos,
+    playerPos: state.player.playerPos,
     rooms: state.rooms,
     mode: state.displayMode,
   }

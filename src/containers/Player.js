@@ -220,7 +220,7 @@ class Player extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   board: state.board,
-  playerPos: state.playerPos,
+  playerPos: state.player.playerPos,
   mode: state.displayMode,
   enemies: state.enemies
 })

@@ -78,7 +78,7 @@ class Board extends Component {
 const mapStateToProps = state => {
   return {
     cells: state.board,
-    playerPos: state.playerPos,
+    playerPos: state.player.playerPos,
     displayMode: state.displayMode
   }
 }

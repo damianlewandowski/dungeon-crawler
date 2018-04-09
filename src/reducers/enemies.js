@@ -6,7 +6,7 @@ import {
   INITIALIZE_ENEMIES  
 } from '../actions';
 
-export const enemies = (state = [], action) => {
+export default (state = [], action) => {
   switch(action.type) {
     case INITIALIZE_ENEMIES:
       return action.payload;
