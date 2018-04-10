@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { initializeEnemies } from '../actions';
+import EntityRenderer from './EntityRenderer';
 import EnemyCell from '../components/EnemyCell';
 import { 
   DUNGEON_CELL_DIMENSIONS,
@@ -47,27 +48,6 @@ class Enemies extends Component {
       return enemies;
     }, [])
   }
-
-  determinePosition(playerX, playerY, enemyX, enemyY) {
-    const [rows, cols] = BOARD_SIZE
-    const { width, height } = PLAYER_CELL_DIMENSIONS;
-    let left = 50 - (playerX - enemyX) * 10;
-    let top = 50 - (playerY - enemyY) * 10;
-    
-    if(playerX < 5) {
-      left = (playerX * width) - (playerX - enemyX) * 10;
-    } else if(playerX > cols - 5) {
-      left = (100 - (cols - playerX) * 10) - (playerX - enemyX) * 10;
-    }
-
-    if(playerY < 5) {
-      top = (playerY * height) - (playerY - enemyY) * 10;
-    } else if(playerY > rows - 5) {
-      top = (100 - (rows - playerY) * 10) - (playerY - enemyY) * 10;
-    }
-
-    return [left, top];
-  }
   
   render() {
     const { enemies, mode, playerPos } = this.props;
@@ -75,45 +55,14 @@ class Enemies extends Component {
       <ul>
         {
           enemies.map((enemy, i) => {
-            const [enemyX, enemyY] = enemy.coordinates;
-            if(mode === PLAYER_VIEW_MODE) {
-              const [playerX, playerY] = playerPos;
-
-              if(
-                enemyX >= playerX - 5 &&
-                enemyX <= playerX + 4 &&
-                enemyY >= playerY - 5 &&
-                enemyY <= playerY + 4
-              ) {              
-                const [left, top] = this.determinePosition(playerX, playerY, enemyX, enemyY);
-
-                return (
-                  <EnemyCell 
-                    key={i}
-                    posStyle={{
-                      left: `${left}%`,
-                      top: `${top}%`,
-                      width: `${PLAYER_CELL_DIMENSIONS.width}%`,
-                      height: `${PLAYER_CELL_DIMENSIONS.height}%`,
-                    }}
-                  />
-                )
-              }
-              // Don't render anything
-              return null;
-            } else {
-                return (
-                  <EnemyCell 
-                    key={i}
-                    posStyle={{
-                      left: `${enemyX * DUNGEON_CELL_DIMENSIONS.width}%`,
-                      top: `${enemyY * DUNGEON_CELL_DIMENSIONS.height}%`,
-                      width: `${DUNGEON_CELL_DIMENSIONS.width}%`,
-                      height: `${DUNGEON_CELL_DIMENSIONS.height}%`
-                    }}
-                  />
-                )
-              } 
+            return (
+              <EntityRenderer 
+                key={i}
+                entityCoords={enemy.coordinates}
+              >
+                <EnemyCell />
+              </EntityRenderer>
+            )
           })
         }
       </ul>
