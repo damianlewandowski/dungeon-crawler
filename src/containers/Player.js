@@ -5,7 +5,8 @@ import {
   updatePlayerPos,
   updatePlayerHp,
   updatePlayerExp,
-  updateEnemyHp, 
+  updatePlayerLevel,
+  updateEnemyHp,
   killEnemy 
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
@@ -148,33 +149,40 @@ class Player extends Component {
     const enemy = enemies.find(enemy => enemy.id === enemyId)
     const newPlayerHp = playerHp - enemy.attack[rand(0, 1)];    
     const newEnemyHp = enemy.hp - weapon.damage * playerLevel;    
-
+    const newPlayerExp = playerExp + enemy.level * 10
+    
     // Decide randomly who attacks first
     const turn = rand(1, 2);
     // Player attacks first
     if(turn === 1) {
       // Check if enemy was killed
       if(newEnemyHp < 1) {
-        dispatch(updatePlayerExp(playerExp + enemy.level * 10))            
-        dispatch(killEnemy(enemyId));
+        dispatch(killEnemy(enemyId));      
+        dispatch(updatePlayerExp(newPlayerExp))            
       } else {
         dispatch(updateEnemyHp(enemyId, newEnemyHp))
         dispatch(updatePlayerHp(newPlayerHp));
       }
     // Enemy atacks first
     } else {
-      const newPlayerHp = playerHp - enemy.attack[rand(0, 1)];
       dispatch(updateEnemyHp(enemyId, newEnemyHp))
       dispatch(updatePlayerHp(newPlayerHp));
       if(newEnemyHp < 1) {
-        dispatch(updatePlayerExp(playerExp + enemy.level * 10))    
+        dispatch(updatePlayerExp(newPlayerExp))    
         dispatch(killEnemy(enemyId))
       }
+    }
+
+    if(newPlayerExp > 99) {
+      dispatch(updatePlayerLevel(playerLevel + 1))
+      dispatch(updatePlayerExp(0))      
     }
 
     if(newPlayerHp < 1) {
       alert("You dead :(")
     }
+
+    
   }
 
   canMove = dir => {
