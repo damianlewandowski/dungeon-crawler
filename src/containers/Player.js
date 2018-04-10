@@ -7,7 +7,8 @@ import {
   updatePlayerExp,
   updatePlayerLevel,
   updateEnemyHp,
-  killEnemy 
+  killEnemy,
+  destroyPotion,
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
@@ -91,42 +92,42 @@ class Player extends Component {
     }
   }
 
-  checkForEnemies(dir, enemies, playerCol, playerRow) {  
-    for(let i = 0; i < enemies.length; i++) {
-      const enemy = enemies[i];
-      const [enemyCol, enemyRow] = enemy.coordinates;
+  checkForEntities(dir, entities, playerCol, playerRow) {
+    for(let i = 0; i < entities.length; i++) {
+      const entity = entities[i];
+      const [entityCol, entityRow] = entity.coordinates;
 
       switch(dir) {
         case 37:
           if(
-            playerRow === enemyRow &&
-            playerCol - 1 === enemyCol
+            playerRow === entityRow &&
+            playerCol - 1 === entityCol
           ) {
-            return enemy.id;
+            return entity.id;
           }
           break;
         case 38:
           if(
-            playerRow - 1 === enemyRow &&
-            playerCol === enemyCol
+            playerRow - 1 === entityRow &&
+            playerCol === entityCol
           ) {
-            return enemy.id;
+            return entity.id;
           }
           break;
         case 39:
           if(
-            playerRow === enemyRow &&
-            playerCol + 1 === enemyCol
+            playerRow === entityRow &&
+            playerCol + 1 === entityCol
           ) {
-            return enemy.id;
+            return entity.id;
           }
           break;
         case 40:
           if(
-            playerRow + 1 === enemyRow &&
-            playerCol === enemyCol
+            playerRow + 1 === entityRow &&
+            playerCol === entityCol
           ) {
-            return enemy.id;
+            return entity.id;
           }
           break;
         default:
@@ -180,20 +181,31 @@ class Player extends Component {
 
     if(newPlayerHp < 1) {
       alert("You dead :(")
-    }
+    } 
+  }
 
-    
+  drinkPotion(potionId) {
+    const { playerHp, potions, dispatch } = this.props;
+    const potion = potions.find(pot => pot.id === potionId)    
+    const hpFromPotion = potion.hp;
+    dispatch(updatePlayerHp(playerHp + hpFromPotion))
+    dispatch(destroyPotion(potionId));
   }
 
   canMove = dir => {
     const [col, row] = this.props.playerPos
-    const { enemies } = this.props;
+    const { enemies, potions } = this.props;
 
     const isWallThere = this.checkWall(dir, col, row);
-    const enemyId = this.checkForEnemies(dir, enemies, col, row)
+    const enemyId = this.checkForEntities(dir, enemies, col, row)
+    const potionId = this.checkForEntities(dir, potions, col, row);
 
     if(enemyId) {
       this.fightEnemy(enemyId, enemies);
+    }
+
+    if(potionId) {
+      this.drinkPotion(potionId)
     }
 
     return isWallThere && !enemyId;
@@ -266,7 +278,8 @@ const mapStateToProps = state => ({
   playerHp: state.player.hp,
   playerExp: state.player.exp,
   mode: state.displayMode,
-  enemies: state.enemies
+  enemies: state.enemies,
+  potions: state.potions,
 })
 
 export default connect(mapStateToProps)(Player);

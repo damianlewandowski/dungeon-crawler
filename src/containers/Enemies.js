@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 import { initializeEnemies } from '../actions';
 import EntityRenderer from './EntityRenderer';
 import EnemyCell from '../components/EnemyCell';
-import { 
-  DUNGEON_CELL_DIMENSIONS,
-  PLAYER_CELL_DIMENSIONS,
-} from '../constants/boardCell';
-import { PLAYER_VIEW_MODE } from '../constants/displayModes';
-import { BOARD_SIZE } from '../constants/board';
 import ENEMIES from '../constants/enemies';
 import { rand } from '../util/util';
 
@@ -31,9 +25,10 @@ class Enemies extends Component {
       
       for(let i = 0; i < rand(1, 2); i++) {
         const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
+        const [enemyX, enemyY] = randCoords;
 
         // Make sure enemy is not spawned on top of player
-        if(playerX !== randCoords[0] && playerY !== randCoords[1]) {
+        if(playerX !== enemyX && playerY !== enemyY) {
           const enemy = {
             id: `${enemyId}${i}`,
             hp: 5,
@@ -50,7 +45,7 @@ class Enemies extends Component {
   }
   
   render() {
-    const { enemies, mode, playerPos } = this.props;
+    const { enemies } = this.props;
     return (
       <ul>
         {
@@ -75,7 +70,6 @@ const mapStateToProps = state => {
     enemies: state.enemies,
     playerPos: state.player.pos,
     rooms: state.rooms,
-    mode: state.displayMode,
   }
 }
 

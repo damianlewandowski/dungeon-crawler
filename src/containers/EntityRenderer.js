@@ -6,7 +6,6 @@ import {
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { BOARD_SIZE } from '../constants/board';
-import { rand } from '../util/util';
 
 class EntityRenderer extends Component {
   determinePosition(playerX, playerY, entityX, entityY) {

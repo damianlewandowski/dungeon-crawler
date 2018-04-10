@@ -1,5 +1,6 @@
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const UPDATE_ROOMS = "UPDATE_ROOMS";
+export const UPDATE_DUNGEON_LEVEL = "UPDATE_DUNGEON_LEVEL";
 
 export const UPDATE_PLAYER_HP = "UPDATE_PLAYER_HP"
 export const UPDATE_PLAYER_LEVEL = "UPDATE_PLAYER_LEVEL"
@@ -16,6 +17,9 @@ export const KILL_ENEMY = "KILL_ENEMY";
 export const UPDATE_ENEMY_LEVEL = "UPDATE_ENEMY_LEVEL";
 export const UPDATE_ENEMY_COORDS = "UPDATE_ENEMY_COORDS";
 export const INITIALIZE_ENEMIES = "INITIALIZE_ENEMIES";
+
+export const INITIALIZE_POTIONS = "INITIALIZE_POTIONS";
+export const DESTROY_POTION = "DESTROY_POTION";
 
 export const updateBoard = board => ({
   type: UPDATE_BOARD,
@@ -93,4 +97,14 @@ export const updateEnemyCoords = coords => ({
 export const initializeEnemies = enemies => ({
   type: INITIALIZE_ENEMIES,
   payload: enemies,
+})
+
+export const initializePotions = potions => ({
+  type: INITIALIZE_POTIONS,
+  payload: potions
+})
+
+export const destroyPotion = id => ({
+  type: DESTROY_POTION,
+  payload: id,
 })

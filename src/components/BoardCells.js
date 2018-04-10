@@ -5,6 +5,7 @@ import { DUNGEON_VIEW, PLAYER_VIEW } from '../constants/boardCells';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import Player from '../containers/Player';
 import Enemies from '../containers/Enemies';
+import Potions from '../containers/Potions';
 
 const styles = {
   position: "relative",
@@ -66,6 +67,7 @@ class BoardCells extends Component {
 
         <li><Player /></li>
         <li><Enemies /></li>
+        <li><Potions /></li>
       </ul>
     )
   }

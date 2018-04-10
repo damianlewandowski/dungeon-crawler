@@ -1,13 +1,13 @@
 import React from 'react';
-import enemyImg from '../images/enemy.png';
+import potionImg from '../images/hp_potion.png';
 
 const style = {
   position: 'absolute',
-  background: `url(${enemyImg})`,
+  background: `url(${potionImg})`,
   backgroundSize: "cover",
 }
 
-const EnemyCell = ({ posStyle }) => {
+const PotionCell = ({ posStyle }) => {
   return (
     <li style={{
       ...style,
@@ -18,4 +18,4 @@ const EnemyCell = ({ posStyle }) => {
   );
 };
 
-export default EnemyCell;
+export default PotionCell;
