@@ -25,53 +25,58 @@ import {
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import ARMORS from '../constants/armors';
 import WEAPONS from '../constants/weapons';
-import drinkPotionSound from '../sounds/drink_potion.mp3';
-import burpSound from '../sounds/burp.mp3';
+import drinkPotionSound from '../sounds/drink_potion.wav';
+import burpSound from '../sounds/burp.wav';
 import { rand } from '../util/util';
 
 class Player extends Component {
+  keyState = {}
+
+  checkPressedKeys() {
+    const { playerPos, dispatch } = this.props;
+    const [x, y] = playerPos;
+
+    if(this.keyState[37]) {
+      if(this.canMove(37)) {
+        dispatch(
+          updatePlayerPos([x - 1, y])
+        )
+      }      
+    } else if(this.keyState[38]) {
+      if(this.canMove(38)) {
+        dispatch(
+          updatePlayerPos([x, y - 1])
+        )
+      }   
+    } else if(this.keyState[39]) {
+      if(this.canMove(39)) {
+        dispatch(
+          updatePlayerPos([x + 1, y])
+        )
+      }
+    } else if(this.keyState[40]) {
+      if(this.canMove(40)) {
+        dispatch(
+          updatePlayerPos([x, y + 1])
+        )
+      }
+    }
+
+    setTimeout(() => {
+      this.checkPressedKeys()
+    }, 50);
+  }
+
   componentDidMount() {
     document.addEventListener("keydown", e => {
-      const { playerPos, dispatch } = this.props;
-      const [x, y] = playerPos;
-
-      switch(e.keyCode) {
-        case 37:
-          if(this.canMove(e.keyCode)) {
-            dispatch(
-              updatePlayerPos([x - 1, y])
-            )
-          }      
-          e.preventDefault();
-          break;
-        case 38:
-          if(this.canMove(e.keyCode)) {
-            dispatch(
-              updatePlayerPos([x, y - 1])
-            )
-          }   
-          e.preventDefault()
-          break;
-        case 39:
-          if(this.canMove(e.keyCode)) {
-            dispatch(
-              updatePlayerPos([x + 1, y])
-            )
-          }
-          e.preventDefault();
-          break;
-        case 40:
-          if(this.canMove(e.keyCode)) {
-            dispatch(
-              updatePlayerPos([x, y + 1])
-            )
-          }
-          e.preventDefault()
-          break;
-        default:
-          break;
-      }
+      this.keyState[e.keyCode] = true;
     })
+
+    document.addEventListener("keyup", e => {
+      this.keyState[e.keyCode] = false;
+    })
+
+    this.checkPressedKeys();
   }
 
   checkWall(dir, col, row) {
@@ -212,8 +217,8 @@ class Player extends Component {
     dispatch(changeSound(drinkPotionSound))
     dispatch(playSound(true))
 
-    // 20% for making a burp
-    if(rand(1, 5) === 2) {
+    // 10% for making a burp
+    if(rand(1, 10) === 2) {
       setTimeout(() => {
         dispatch(changeSound(burpSound))
         dispatch(playSound(true))

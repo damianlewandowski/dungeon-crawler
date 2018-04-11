@@ -1,8 +1,6 @@
 import {
   UPDATE_ENEMY_HP,
   KILL_ENEMY,
-  // UPDATE_ENEMY_LEVEL,
-  // UPDATE_ENEMY_COORDS,
   INITIALIZE_ENEMIES  
 } from '../actions';
 

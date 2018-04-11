@@ -152,8 +152,8 @@ export default class Dungeon {
     // Carve first room and create next one based on first ones' position
     const width = rand(5, 12);
     const height = rand(5, 12);
-    const x = rand(0, boardCopy[0].length - width - 1);
-    const y = rand(0, boardCopy.length - height - 1);
+    const x = rand(0, boardCopy[0].length - width);
+    const y = rand(0, boardCopy.length - height);
     this.rooms.push(
       this.buildRoom(
         boardCopy,
