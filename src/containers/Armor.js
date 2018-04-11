@@ -73,9 +73,7 @@ class Armor extends Component {
   
   render() {
     const { groundArmor } = this.props;
-    console.log(groundArmor);
     const isEmpty = Object.keys(groundArmor.armor).length === 0;
-    console.log(isEmpty);
     return !isEmpty && groundArmor.show 
     ? (
       <EntityRenderer 

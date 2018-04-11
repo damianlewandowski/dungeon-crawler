@@ -25,7 +25,7 @@ export const UPDATE_GROUND_ARMOR = "UPDATE_GROUND_ARMOR";
 export const SHOW_GROUND_ARMOR = "SHOW_GROUND_ARMOR";
 
 export const UPDATE_GROUND_WEAPON = "UPDATE_GROUND_WEAPON";
-export const DESTROY_GROUND_WEAPON = "DESTROY_WEAPON";
+export const SHOW_GROUND_WEAPON = "SHOW_GROUND_WEAPON";
 
 export const UPDATE_STAIRS = "UPDATE_STAIRS";
 
@@ -53,7 +53,6 @@ export const updatePlayerLevel = level => ({
 })
 
 export const updatePlayerExp = exp => {
-  console.log(exp);
   return {
     type: UPDATE_PLAYER_EXP,
     payload: exp
@@ -135,9 +134,9 @@ export const showGroundArmor = show => ({
   payload: show,
 })
 
-export const destroyGroundWeapon = id => ({
-  type: DESTROY_GROUND_WEAPON,
-  payload: id,
+export const showGroundWeapon = show => ({
+  type: SHOW_GROUND_WEAPON,
+  payload: show,
 })
 
 export const updateStairs = coords => ({

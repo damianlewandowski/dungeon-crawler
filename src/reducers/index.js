@@ -3,6 +3,7 @@ import enemies from './enemies';
 import player from './player';
 import sound from './sound';
 import groundArmor from './groundArmor';
+import groundWeapon from './groundWeapon';
 import { 
   UPDATE_BOARD, 
   UPDATE_ROOMS,
@@ -10,12 +11,9 @@ import {
   CHANGE_DISPLAY_MODE,
   INITIALIZE_POTIONS,
   DESTROY_POTION,
-  UPDATE_GROUND_WEAPON,
-  DESTROY_GROUND_WEAPON,
   UPDATE_STAIRS,
 } from '../actions';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
-import WEAPONS from '../constants/weapons';
 
 const board = (state = [], action) => {
   switch(action.type) {
@@ -61,17 +59,6 @@ const potions = (state = [], action) => {
       const drunkPotionId = action.payload;
       return state
         .filter(potion => potion.id !== drunkPotionId)
-    default:
-      return state;
-  }
-}
-
-const groundWeapon = (state = WEAPONS[1], action) => {
-  switch(action.type) {
-    case UPDATE_GROUND_WEAPON:
-      return action.payload;
-    case DESTROY_GROUND_WEAPON:
-      return null;
     default:
       return state;
   }

@@ -13,7 +13,8 @@ import {
   destroyPotion,
   playSound,
   changeSound,
-  showGroundArmor
+  showGroundArmor,
+  showGroundWeapon
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
@@ -23,6 +24,7 @@ import {
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import ARMORS from '../constants/armors';
+import WEAPONS from '../constants/weapons';
 import drinkPotionSound from '../sounds/drink_potion.mp3';
 import burpSound from '../sounds/burp.mp3';
 import { rand } from '../util/util';
@@ -227,15 +229,20 @@ class Player extends Component {
     this.props.dispatch(showGroundArmor(false))    
   }
 
+  equipWeapon(id) {
+    this.props.dispatch(updatePlayerWeapon(WEAPONS[id]))
+    this.props.dispatch(showGroundWeapon(false))    
+  }
+
   canMove = dir => {
     const [col, row] = this.props.playerPos
-    const { enemies, potions, groundArmor } = this.props;
+    const { enemies, potions, groundArmor, groundWeapon } = this.props;
 
     const isWallThere = this.checkWall(dir, col, row);
     const enemyId = this.checkForEntities(dir, enemies, col, row)
     const potionId = this.checkForEntities(dir, potions, col, row);
     const groundArmorId = this.checkForEntity(dir, groundArmor, col, row);
-    console.log(groundArmorId);
+    const groundWeaponId = this.checkForEntity(dir, groundWeapon, col, row);
     if(enemyId) {
       this.fightEnemy(enemyId, enemies);
     }
@@ -246,6 +253,10 @@ class Player extends Component {
 
     if(groundArmorId) {
       this.equipArmor(groundArmorId);
+    }
+
+    if(groundWeaponId) {
+      this.equipWeapon(groundWeaponId);
     }
 
     return isWallThere && !enemyId;
@@ -320,7 +331,8 @@ const mapStateToProps = state => ({
   mode: state.displayMode,
   enemies: state.enemies,
   potions: state.potions,
-  groundArmor: state.groundArmor.armor
+  groundArmor: state.groundArmor.armor,
+  groundWeapon: state.groundWeapon.weapon,
 })
 
 export default connect(mapStateToProps)(Player);

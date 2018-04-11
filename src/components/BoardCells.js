@@ -7,6 +7,7 @@ import Player from '../containers/Player';
 import Enemies from '../containers/Enemies';
 import Potions from '../containers/Potions';
 import Armor from '../containers/Armor';
+import Weapon from '../containers/Weapon';
 
 const styles = {
   position: "relative",
@@ -70,6 +71,7 @@ class BoardCells extends Component {
         <li><Enemies /></li>
         <li><Potions /></li>
         <Armor />
+        <Weapon />
       </ul>
     )
   }

@@ -48,7 +48,6 @@ class Board extends Component {
   calculateCellBrightness = (row, col) => {
     const { playerPos } = this.props;
     const [x, y] = playerPos;
-    console.log(`[${x}, ${y}]`);
 
     if(Math.abs(row - y) > 3 || Math.abs(col - x) > 3) {
       console.log("row - y", row - y);

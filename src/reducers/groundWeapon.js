@@ -1,21 +1,21 @@
 import { combineReducers } from 'redux';
 import {
-  UPDATE_GROUND_ARMOR,
-  SHOW_GROUND_ARMOR, 
+  UPDATE_GROUND_WEAPON,
+  SHOW_GROUND_WEAPON, 
 } from '../actions';
 
 const show = (state = true, action) => {
   switch(action.type) {
-    case SHOW_GROUND_ARMOR:
+    case SHOW_GROUND_WEAPON:
       return action.payload;
     default:
       return state;
   }
 }
 
-const armor = (state = {}, action) => {
+const weapon = (state = {}, action) => {
   switch(action.type) {
-    case UPDATE_GROUND_ARMOR:
+    case UPDATE_GROUND_WEAPON:
       return action.payload;
     default:
       return state;
@@ -24,5 +24,5 @@ const armor = (state = {}, action) => {
 
 export default combineReducers({
   show,
-  armor
+  weapon
 })
