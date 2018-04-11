@@ -242,12 +242,12 @@ class Player extends Component {
   canMove = dir => {
     const [col, row] = this.props.playerPos
     const { enemies, potions, groundArmor, groundWeapon } = this.props;
-
     const isWallThere = this.checkWall(dir, col, row);
     const enemyId = this.checkForEntities(dir, enemies, col, row)
     const potionId = this.checkForEntities(dir, potions, col, row);
     const groundArmorId = this.checkForEntity(dir, groundArmor, col, row);
     const groundWeaponId = this.checkForEntity(dir, groundWeapon, col, row);
+
     if(enemyId) {
       this.fightEnemy(enemyId, enemies);
     }
@@ -334,7 +334,7 @@ const mapStateToProps = state => ({
   playerHp: state.player.hp,
   playerExp: state.player.exp,
   mode: state.displayMode,
-  enemies: state.enemies,
+  enemies: state.enemies.items,
   potions: state.potions,
   groundArmor: state.groundArmor.armor,
   groundWeapon: state.groundWeapon.weapon,

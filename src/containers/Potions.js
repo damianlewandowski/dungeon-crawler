@@ -77,7 +77,7 @@ class Potions extends Component {
 const mapStateToProps = state => {
   return {
     potions: state.potions,
-    enemies: state.enemies,
+    enemies: state.enemies.items,
     playerPos: state.player.pos,
     rooms: state.rooms,
     dungeonLevel: state.dungeonLevel,

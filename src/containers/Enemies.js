@@ -9,7 +9,7 @@ import { rand } from '../util/util';
 class Enemies extends Component {
   componentWillReceiveProps(nextProps) {
     if(
-      nextProps.enemies.length === 0 &&
+      nextProps.shouldInitialize &&
       nextProps.playerPos.length !== 0
     ) {
       const enemies = this.spawnEnemies(nextProps.rooms, nextProps.playerPos);
@@ -67,7 +67,8 @@ class Enemies extends Component {
 
 const mapStateToProps = state => {
   return {
-    enemies: state.enemies,
+    enemies: state.enemies.items,
+    shouldInitialize: state.enemies.shouldInitialize,
     playerPos: state.player.pos,
     rooms: state.rooms,
   }

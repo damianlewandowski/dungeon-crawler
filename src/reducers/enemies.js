@@ -4,14 +4,21 @@ import {
   INITIALIZE_ENEMIES  
 } from '../actions';
 
-export default (state = [], action) => {
+const initialState = {
+  shouldInitialize: true,
+  items: []
+}
+export default (state = initialState, action) => {
   switch(action.type) {
     case INITIALIZE_ENEMIES:
-      return action.payload;
+      return {
+        shouldInitialize: false,
+        items: action.payload,
+      }
 
     case UPDATE_ENEMY_HP: {
       const { id, hp } = action.payload;
-      return state.map(enemy => {
+      const newItems = state.items.map(enemy => {
         if(id === enemy.id) {
           return {
             ...enemy,
@@ -20,11 +27,20 @@ export default (state = [], action) => {
         }
         return enemy;
       })
+
+      return {
+        ...state,
+        items: newItems
+      }
     }
       
     case KILL_ENEMY: {
       const id = action.payload;
-      return state.filter(enemy => enemy.id !== id)
+      const newItems = state.items.filter(enemy => enemy.id !== id);
+      return {
+        ...state,
+        items: newItems
+      }
     }
 
     default:
