@@ -8,17 +8,20 @@ import {
   DUNGEON_CELL_DIMENSIONS,
   PLAYER_CELL_DIMENSIONS
 } from '../constants/boardCell';
+import groundImg from '../images/ground.png';
+import wallImg from '../images/wall.png';
 
 const BoardCell = ({ letter, mode }) => {
   const determineColor = letter => {
     switch(letter) {
       case WALL:
         return {
-          background: "#555",
+          background: `url(${wallImg})`,
         }
       case ROOM:
         return {
-          background: "#fff",
+          background: `url(${groundImg})`,
+          backgroundSize: "cover",
         }
       case PLAYER:
         return {

@@ -1,15 +1,21 @@
 import { combineReducers } from 'redux';
 import enemies from './enemies';
 import player from './player';
+import sound from './sound';
+import groundArmor from './groundArmor';
 import { 
   UPDATE_BOARD, 
   UPDATE_ROOMS,
   UPDATE_DUNGEON_LEVEL,
   CHANGE_DISPLAY_MODE,
   INITIALIZE_POTIONS,
-  DESTROY_POTION
+  DESTROY_POTION,
+  UPDATE_GROUND_WEAPON,
+  DESTROY_GROUND_WEAPON,
+  UPDATE_STAIRS,
 } from '../actions';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
+import WEAPONS from '../constants/weapons';
 
 const board = (state = [], action) => {
   switch(action.type) {
@@ -60,6 +66,26 @@ const potions = (state = [], action) => {
   }
 }
 
+const groundWeapon = (state = WEAPONS[1], action) => {
+  switch(action.type) {
+    case UPDATE_GROUND_WEAPON:
+      return action.payload;
+    case DESTROY_GROUND_WEAPON:
+      return null;
+    default:
+      return state;
+  }
+}
+
+const stairs = (state = [], action) => {
+  switch(action.type) {
+    case UPDATE_STAIRS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   board,
   rooms,
@@ -68,4 +94,8 @@ export default combineReducers({
   player,
   enemies,
   potions,
+  groundArmor,
+  groundWeapon,
+  stairs,
+  sound
 })

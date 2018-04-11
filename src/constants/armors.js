@@ -26,7 +26,7 @@ export default [
   },
   {
     id: 5,
-    name: "FIRE ARMOR",
+    name: "FULL_PLATE_ARMOR",
     defense: 6,
   },
 ]

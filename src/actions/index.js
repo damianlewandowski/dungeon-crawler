@@ -21,6 +21,17 @@ export const INITIALIZE_ENEMIES = "INITIALIZE_ENEMIES";
 export const INITIALIZE_POTIONS = "INITIALIZE_POTIONS";
 export const DESTROY_POTION = "DESTROY_POTION";
 
+export const UPDATE_GROUND_ARMOR = "UPDATE_GROUND_ARMOR";
+export const SHOW_GROUND_ARMOR = "SHOW_GROUND_ARMOR";
+
+export const UPDATE_GROUND_WEAPON = "UPDATE_GROUND_WEAPON";
+export const DESTROY_GROUND_WEAPON = "DESTROY_WEAPON";
+
+export const UPDATE_STAIRS = "UPDATE_STAIRS";
+
+export const PLAY_SOUND = "PLAY_SOUND";
+export const CHANGE_SOUND = "CHANGE_SOUND";
+
 export const updateBoard = board => ({
   type: UPDATE_BOARD,
   payload: board
@@ -107,4 +118,39 @@ export const initializePotions = potions => ({
 export const destroyPotion = id => ({
   type: DESTROY_POTION,
   payload: id,
+})
+
+export const updateGroundArmor = armor => ({
+  type: UPDATE_GROUND_ARMOR,
+  payload: armor
+})
+
+export const updateGroundWeapon = weapon => ({
+  type: UPDATE_GROUND_WEAPON,
+  payload: weapon,
+})
+
+export const showGroundArmor = show => ({
+  type: SHOW_GROUND_ARMOR,
+  payload: show,
+})
+
+export const destroyGroundWeapon = id => ({
+  type: DESTROY_GROUND_WEAPON,
+  payload: id,
+})
+
+export const updateStairs = coords => ({
+  type: UPDATE_STAIRS,
+  payload: coords
+})
+
+export const playSound = flag => ({
+  type: PLAY_SOUND,
+  payload: flag,
+})
+
+export const changeSound = soundPath => ({
+  type: CHANGE_SOUND,
+  payload: soundPath
 })

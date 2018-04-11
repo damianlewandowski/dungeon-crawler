@@ -32,7 +32,7 @@ class Enemies extends Component {
           const enemy = {
             id: `${enemyId}${i}`,
             hp: 5,
-            attack: [ENEMIES[0].level * 5, ENEMIES[0].level * 7],
+            attack: [ENEMIES[0].level * 3, ENEMIES[0].level * 5],
             level: ENEMIES[0].level,
             coordinates: randCoords
           }

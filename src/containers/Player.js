@@ -6,9 +6,14 @@ import {
   updatePlayerHp,
   updatePlayerExp,
   updatePlayerLevel,
+  updatePlayerWeapon,
+  updatePlayerArmor,
   updateEnemyHp,
   killEnemy,
   destroyPotion,
+  playSound,
+  changeSound,
+  showGroundArmor
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
@@ -17,6 +22,9 @@ import {
   WALL 
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
+import ARMORS from '../constants/armors';
+import drinkPotionSound from '../sounds/drink_potion.mp3';
+import burpSound from '../sounds/burp.mp3';
 import { rand } from '../util/util';
 
 class Player extends Component {
@@ -92,46 +100,57 @@ class Player extends Component {
     }
   }
 
+  checkForEntity(dir, entity, playerCol, playerRow) {
+    const [entityCol, entityRow] = entity.coordinates;
+    
+    switch(dir) {
+      case 37:
+        if(
+          playerRow === entityRow &&
+          playerCol - 1 === entityCol
+        ) {
+          return entity.id;
+        }
+        break;
+      case 38:
+        if(
+          playerRow - 1 === entityRow &&
+          playerCol === entityCol
+        ) {
+          return entity.id;
+        }
+        break;
+      case 39:
+        if(
+          playerRow === entityRow &&
+          playerCol + 1 === entityCol
+        ) {
+          return entity.id;
+        }
+        break;
+      case 40:
+        if(
+          playerRow + 1 === entityRow &&
+          playerCol === entityCol
+        ) {
+          return entity.id;
+        }
+        break;
+      default:
+        break;
+    }
+
+    // Nothing is here
+    return false;
+  }
+
   checkForEntities(dir, entities, playerCol, playerRow) {
     for(let i = 0; i < entities.length; i++) {
       const entity = entities[i];
-      const [entityCol, entityRow] = entity.coordinates;
 
-      switch(dir) {
-        case 37:
-          if(
-            playerRow === entityRow &&
-            playerCol - 1 === entityCol
-          ) {
-            return entity.id;
-          }
-          break;
-        case 38:
-          if(
-            playerRow - 1 === entityRow &&
-            playerCol === entityCol
-          ) {
-            return entity.id;
-          }
-          break;
-        case 39:
-          if(
-            playerRow === entityRow &&
-            playerCol + 1 === entityCol
-          ) {
-            return entity.id;
-          }
-          break;
-        case 40:
-          if(
-            playerRow + 1 === entityRow &&
-            playerCol === entityCol
-          ) {
-            return entity.id;
-          }
-          break;
-        default:
-          break;
+      const somethingThere = this.checkForEntity(dir, entity, playerCol, playerRow)
+      if(somethingThere) {
+        return somethingThere
       }
     }
 
@@ -188,24 +207,45 @@ class Player extends Component {
     const { playerHp, potions, dispatch } = this.props;
     const potion = potions.find(pot => pot.id === potionId)    
     const hpFromPotion = potion.hp;
+    dispatch(changeSound(drinkPotionSound))
+    dispatch(playSound(true))
+
+    // 20% for making a burp
+    if(rand(1, 5) === 2) {
+      setTimeout(() => {
+        dispatch(changeSound(burpSound))
+        dispatch(playSound(true))
+      }, 1500)
+    }
+    
     dispatch(updatePlayerHp(playerHp + hpFromPotion))
     dispatch(destroyPotion(potionId));
   }
 
+  equipArmor(id) {
+    this.props.dispatch(updatePlayerArmor(ARMORS[id]))
+    this.props.dispatch(showGroundArmor(false))    
+  }
+
   canMove = dir => {
     const [col, row] = this.props.playerPos
-    const { enemies, potions } = this.props;
+    const { enemies, potions, groundArmor } = this.props;
 
     const isWallThere = this.checkWall(dir, col, row);
     const enemyId = this.checkForEntities(dir, enemies, col, row)
     const potionId = this.checkForEntities(dir, potions, col, row);
-
+    const groundArmorId = this.checkForEntity(dir, groundArmor, col, row);
+    console.log(groundArmorId);
     if(enemyId) {
       this.fightEnemy(enemyId, enemies);
     }
 
     if(potionId) {
       this.drinkPotion(potionId)
+    }
+
+    if(groundArmorId) {
+      this.equipArmor(groundArmorId);
     }
 
     return isWallThere && !enemyId;
@@ -280,6 +320,7 @@ const mapStateToProps = state => ({
   mode: state.displayMode,
   enemies: state.enemies,
   potions: state.potions,
+  groundArmor: state.groundArmor.armor
 })
 
 export default connect(mapStateToProps)(Player);

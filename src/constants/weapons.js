@@ -16,7 +16,7 @@ export default [
   },
   {
     id: 3,
-    name: "SMALL_SWORD",
+    name: "SHORT_SWORD",
     damage: 4,
   },
   {

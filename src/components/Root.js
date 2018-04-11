@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
-import App from './App';
+import App from '../containers/App';
 
 const Root = ({ store }) => {
   return (

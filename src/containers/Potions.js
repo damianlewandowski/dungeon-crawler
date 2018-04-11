@@ -12,16 +12,16 @@ class Potions extends Component {
       nextProps.enemies.length !== 0 &&
       nextProps.playerPos.length !== 0
     ) {
-      const potions = this.spawnPotions(nextProps.rooms, nextProps.playerPos);
+      const potions = this.spawnPotions(nextProps.rooms, nextProps.playerPos, nextProps.enemies);
       this.props.dispatch(initializePotions(potions));
     }
   }
 
   // Spawn 0 - 3 potions in each room  
-  spawnPotions = (rooms, playerPos) => {
+  spawnPotions = (rooms, playerPos, enemies) => {
     return rooms.reduce((potions, room, potionId) => {
       const { coords } = room;
-      const { enemies, dungeonLevel } = this.props;
+      const { dungeonLevel } = this.props;
       const [playerX, playerY] = playerPos;
       
       for(let i = 0; i < rand(1, 3); i++) {
@@ -35,14 +35,14 @@ class Potions extends Component {
         ) {
           // Make sure potion is not spawned on top of an enemy
           for(let i = 0; i < enemies.length; i++) {
-            const [enemyX, enemyY] = enemies.coordinates;
+            const [enemyX, enemyY] = enemies[i].coordinates;
             if(enemyX === potionX && enemyY === potionY) {
               return potions;
             }
           }
           const potion = {
             id: `${potionId}${i}`,
-            hp: dungeonLevel * 10,
+            hp: dungeonLevel * 15,
             coordinates: randCoords
           }
           potions.push(potion)

@@ -6,6 +6,7 @@ import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import Player from '../containers/Player';
 import Enemies from '../containers/Enemies';
 import Potions from '../containers/Potions';
+import Armor from '../containers/Armor';
 
 const styles = {
   position: "relative",
@@ -68,6 +69,7 @@ class BoardCells extends Component {
         <li><Player /></li>
         <li><Enemies /></li>
         <li><Potions /></li>
+        <Armor />
       </ul>
     )
   }
