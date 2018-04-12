@@ -7,6 +7,17 @@ import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import Dungeon from '../util/Dungeon';
 
 class Board extends Component {
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.dungeonLevel !== this.props.dungeonLevel) {
+      const { dispatch } = this.props;
+      const dungeon = new Dungeon(...BOARD_SIZE, ROOMS);
+      const board = dungeon.generateRooms(dungeon.initializeBoard());
+      dispatch(updateBoard(board));
+      const rooms = dungeon.getRooms();
+      dispatch(updateRooms(rooms));
+    }
+  }
+  
   componentDidMount() {
     const { dispatch } = this.props;
     const dungeon = new Dungeon(...BOARD_SIZE, ROOMS);
@@ -59,14 +70,15 @@ class Board extends Component {
   }
 
   render() {
-    const { displayMode } = this.props;
+    const { displayMode, dungeonLevel } = this.props;
     const cellsToRender = this.calculateCellsToRender(displayMode)
-
+    
     return (
       <div>
         <BoardCells 
           cells={cellsToRender} 
-          mode={displayMode} 
+          mode={displayMode}
+          dungeonLevel={dungeonLevel}
           calculateCellBrightness={this.calculateCellBrightness}
         />
       </div>
@@ -78,7 +90,8 @@ const mapStateToProps = state => {
   return {
     cells: state.board,
     playerPos: state.player.pos,
-    displayMode: state.displayMode
+    displayMode: state.displayMode,
+    dungeonLevel: state.dungeonLevel
   }
 }
 

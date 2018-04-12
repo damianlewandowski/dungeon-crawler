@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateGroundArmor } from '../actions';
+import { updateGroundArmor, showGroundArmor } from '../actions';
 import EntityRenderer from './EntityRenderer';
 import ArmorCell from '../components/ArmorCell';
 import ARMORS from '../constants/armors';
@@ -23,10 +23,11 @@ const ARMOR_IMAGES = [
 class Armor extends Component {
   componentWillReceiveProps(nextProps) {
     if(
-      nextProps.potions.length !== 0 &&
+      (nextProps.potions.length !== 0 &&
       nextProps.enemies.length !== 0 &&
       nextProps.playerPos.length !== 0 &&
-      Object.keys(nextProps.groundArmor.armor).length === 0
+      Object.keys(nextProps.groundArmor.armor).length === 0) || 
+      nextProps.dungeonLevel !== this.props.dungeonLevel
     ) {
       const armor = this.spawnArmor(
         nextProps.rooms, 
@@ -36,6 +37,7 @@ class Armor extends Component {
         nextProps.dungeonLevel
       );
       this.props.dispatch(updateGroundArmor(armor));
+      this.props.dispatch(showGroundArmor(true))
     }
   }
 
@@ -73,14 +75,16 @@ class Armor extends Component {
   
   render() {
     const { groundArmor } = this.props;
+    console.log(groundArmor);
     const isEmpty = Object.keys(groundArmor.armor).length === 0;
+    console.log(!isEmpty && groundArmor.show);
     return !isEmpty && groundArmor.show 
     ? (
       <EntityRenderer 
         entityCoords={groundArmor.armor.coordinates}
       >
         <ArmorCell style={{
-          background: `url(${ARMOR_IMAGES[groundArmor.armor.id]})`,
+          background: `url(${ARMOR_IMAGES[groundArmor.armor.id - 1]})`,
           backgroundSize: "cover",
           position: "absolute",
         }} />

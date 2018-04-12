@@ -8,6 +8,10 @@ import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { BOARD_SIZE } from '../constants/board';
 
 class EntityRenderer extends Component {
+  componentWillReceiveProps(nextProps) {
+  }
+  
+
   determinePosition(playerX, playerY, entityX, entityY) {
     const [rows, cols] = BOARD_SIZE
     const { width, height } = PLAYER_CELL_DIMENSIONS;

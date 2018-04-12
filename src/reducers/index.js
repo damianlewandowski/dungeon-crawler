@@ -36,7 +36,7 @@ const rooms = (state = [], action) => {
 const dungeonLevel = (state = 1, action) => {
   switch(action.type) {
     case UPDATE_DUNGEON_LEVEL:
-      return action.payload
+      return state + 1
     default:
       return state;
   }
@@ -64,10 +64,19 @@ const potions = (state = [], action) => {
   }
 }
 
-const stairs = (state = [], action) => {
+const initialStairsState = {
+  id: 1,
+  show: true,
+  coordinates: []
+}
+const stairs = (state = initialStairsState, action) => {
   switch(action.type) {
     case UPDATE_STAIRS:
-      return action.payload;
+      return {
+        ...state,
+        show: false,
+        coordinates: action.payload,
+      }
     default:
       return state;
   }

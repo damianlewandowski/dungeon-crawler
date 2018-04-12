@@ -153,3 +153,7 @@ export const changeSound = soundPath => ({
   type: CHANGE_SOUND,
   payload: soundPath
 })
+
+export const updateDungeonLevel = () => ({
+  type: UPDATE_DUNGEON_LEVEL,
+})

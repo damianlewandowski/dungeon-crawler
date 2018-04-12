@@ -8,9 +8,10 @@ import { rand } from '../util/util';
 class Potions extends Component {
   componentWillReceiveProps(nextProps) {
     if(
-      nextProps.potions.length === 0 &&
+      (nextProps.potions.length === 0 &&
       nextProps.enemies.length !== 0 &&
-      nextProps.playerPos.length !== 0
+      nextProps.playerPos.length !== 0) || 
+      nextProps.dungeonLevel !== this.props.dungeonLevel
     ) {
       const potions = this.spawnPotions(nextProps.rooms, nextProps.playerPos, nextProps.enemies);
       this.props.dispatch(initializePotions(potions));

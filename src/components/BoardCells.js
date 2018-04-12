@@ -8,6 +8,7 @@ import Enemies from '../containers/Enemies';
 import Potions from '../containers/Potions';
 import Armor from '../containers/Armor';
 import Weapon from '../containers/Weapon';
+import Stairs from '../containers/Stairs';
 
 const styles = {
   position: "relative",
@@ -25,10 +26,16 @@ class BoardCells extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    // Update whole board when only a couple of cells are visible
     if(nextProps.mode === PLAYER_VIEW_MODE) {
       return true;
     }
+    // Update on changing the mode
     if(nextProps.mode !== this.props.mode) {
+      return true;
+    }
+    // Update on next dungeon level
+    if(nextProps.dungeonLevel !== this.props.dungeonLevel) {
       return true;
     }
     return false;
@@ -72,6 +79,7 @@ class BoardCells extends Component {
         <li><Potions /></li>
         <Armor />
         <Weapon />
+        <Stairs />
       </ul>
     )
   }

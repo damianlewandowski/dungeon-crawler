@@ -14,7 +14,8 @@ import {
   playSound,
   changeSound,
   showGroundArmor,
-  showGroundWeapon
+  showGroundWeapon,
+  updateDungeonLevel,
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
@@ -77,6 +78,18 @@ class Player extends Component {
     })
 
     this.checkPressedKeys();
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if(
+      nextProps.playerPos.length === 0 || 
+      (nextProps.dungeonLevel !== this.props.dungeonLevel)
+    ) {
+      const { rooms } = nextProps;
+      const room = rooms[rand(0, rooms.length - 1)];
+      const randCoords = room.coords[rand(0, room.coords.length - 1)];
+      this.props.dispatch(updatePlayerPos(randCoords))
+    }
   }
 
   checkWall(dir, col, row) {
@@ -239,14 +252,21 @@ class Player extends Component {
     this.props.dispatch(showGroundWeapon(false))    
   }
 
+  walkUpTheStairs() {
+    this.props.dispatch(showGroundArmor(false))
+    this.props.dispatch(showGroundWeapon(false))
+    this.props.dispatch(updateDungeonLevel())
+  }
+
   canMove = dir => {
     const [col, row] = this.props.playerPos
-    const { enemies, potions, groundArmor, groundWeapon } = this.props;
+    const { enemies, potions, groundArmor, groundWeapon, stairs } = this.props;
     const isWallThere = this.checkWall(dir, col, row);
     const enemyId = this.checkForEntities(dir, enemies, col, row)
     const potionId = this.checkForEntities(dir, potions, col, row);
     const groundArmorId = this.checkForEntity(dir, groundArmor, col, row);
     const groundWeaponId = this.checkForEntity(dir, groundWeapon, col, row);
+    const stairsId = this.checkForEntity(dir, stairs, col, row);
 
     if(enemyId) {
       this.fightEnemy(enemyId, enemies);
@@ -264,7 +284,11 @@ class Player extends Component {
       this.equipWeapon(groundWeaponId);
     }
 
-    return isWallThere && !enemyId;
+    if(stairsId) {
+      this.walkUpTheStairs();
+    }
+
+    return isWallThere && !enemyId && !stairsId;
   }
 
   calculateDisplayedPos = (mode) => {
@@ -295,15 +319,6 @@ class Player extends Component {
       x * DUNGEON_CELL_DIMENSIONS.width,
       y * DUNGEON_CELL_DIMENSIONS.height
     ]
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.playerPos.length === 0) {
-      const { rooms } = nextProps;
-      const room = rooms[rand(0, rooms.length - 1)];
-      const randCoords = room.coords[rand(0, room.coords.length - 1)];
-      this.props.dispatch(updatePlayerPos(randCoords))
-    }
   }
 
   render() {
@@ -338,6 +353,8 @@ const mapStateToProps = state => ({
   potions: state.potions,
   groundArmor: state.groundArmor.armor,
   groundWeapon: state.groundWeapon.weapon,
+  stairs: state.stairs,
+  dungeonLevel: state.dungeonLevel
 })
 
 export default connect(mapStateToProps)(Player);

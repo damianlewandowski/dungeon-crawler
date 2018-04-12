@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateGroundWeapon } from '../actions';
+import { updateGroundWeapon, showGroundWeapon } from '../actions';
 import EntityRenderer from './EntityRenderer';
 import WeaponCell from '../components/WeaponCell';
 import WEAPONS from '../constants/weapons';
@@ -23,11 +23,12 @@ const WEAPON_IMAGES = [
 class Weapon extends Component {
   componentWillReceiveProps(nextProps) {
     if(
-      nextProps.potions.length !== 0 &&
+      (nextProps.potions.length !== 0 &&
       nextProps.enemies.length !== 0 &&
       nextProps.playerPos.length !== 0 &&
       Object.keys(nextProps.groundArmor.armor).length !== 0 &&
-      Object.keys(nextProps.groundWeapon.weapon).length === 0
+      Object.keys(nextProps.groundWeapon.weapon).length === 0) || 
+      nextProps.dungeonLevel !== this.props.dungeonLevel
     ) {
       const weapon = this.spawnWeapon(
         nextProps.rooms, 
@@ -38,6 +39,7 @@ class Weapon extends Component {
         nextProps.groundArmor.armor,
       );
       this.props.dispatch(updateGroundWeapon(weapon));
+      this.props.dispatch(showGroundWeapon(true))
     }
   }
 
@@ -86,7 +88,7 @@ class Weapon extends Component {
         entityCoords={groundWeapon.weapon.coordinates}
       >
         <WeaponCell style={{
-          background: `url(${WEAPON_IMAGES[groundWeapon.weapon.id]})`,
+          background: `url(${WEAPON_IMAGES[groundWeapon.weapon.id - 1]})`,
           backgroundSize: "cover",
           position: "absolute",
         }} />
