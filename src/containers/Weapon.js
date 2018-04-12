@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateGroundWeapon, showGroundWeapon } from '../actions';
 import EntityRenderer from './EntityRenderer';
-import WeaponCell from '../components/WeaponCell';
+import EntityCell from '../components/EntityCell';
 import WEAPONS from '../constants/weapons';
 import { rand } from '../util/util';
 
@@ -11,13 +11,15 @@ import club from '../images/weapons/club.png';
 import shortSword from '../images/weapons/short_sword.png';
 import longSword from '../images/weapons/long_sword.png';
 import fireSword from '../images/weapons/fire_sword.png';
+import daedricSword from '../images/weapons/daedric_sword.png';
 
 const WEAPON_IMAGES = [
   stick,
   club,
   shortSword,
   longSword,
-  fireSword
+  fireSword,
+  daedricSword,
 ]
 
 class Weapon extends Component {
@@ -87,8 +89,8 @@ class Weapon extends Component {
       <EntityRenderer 
         entityCoords={groundWeapon.weapon.coordinates}
       >
-        <WeaponCell style={{
-          background: `url(${WEAPON_IMAGES[groundWeapon.weapon.id - 1]})`,
+        <EntityCell style={{
+          background: `url(${WEAPON_IMAGES[groundWeapon.weapon.id - 1]}) center center`,
           backgroundSize: "cover",
           position: "absolute",
         }} />

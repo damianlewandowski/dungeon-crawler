@@ -3,6 +3,7 @@ export const UPDATE_ROOMS = "UPDATE_ROOMS";
 export const UPDATE_DUNGEON_LEVEL = "UPDATE_DUNGEON_LEVEL";
 
 export const UPDATE_PLAYER_HP = "UPDATE_PLAYER_HP"
+export const UPDATE_PLAYER_MAX_HP = "UPDATE_PLAYER_MAX_HP"
 export const UPDATE_PLAYER_LEVEL = "UPDATE_PLAYER_LEVEL"
 export const UPDATE_PLAYER_EXP = "UPDATE_PLAYER_EXP"
 export const UPDATE_PLAYER_WEAPON = "UPDATE_PLAYER_WEAPON"
@@ -44,6 +45,11 @@ export const updateRooms = rooms => ({
 
 export const updatePlayerHp = hp => ({
   type: UPDATE_PLAYER_HP,
+  payload: hp
+})
+
+export const updatePlayerMaxHp = hp => ({
+  type: UPDATE_PLAYER_MAX_HP,
   payload: hp
 })
 

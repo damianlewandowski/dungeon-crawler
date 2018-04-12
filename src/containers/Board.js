@@ -72,7 +72,7 @@ class Board extends Component {
   render() {
     const { displayMode, dungeonLevel } = this.props;
     const cellsToRender = this.calculateCellsToRender(displayMode)
-    
+
     return (
       <div>
         <BoardCells 

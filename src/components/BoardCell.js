@@ -4,32 +4,74 @@ import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 import { 
   WALL, 
   ROOM, 
-  PLAYER, 
   DUNGEON_CELL_DIMENSIONS,
   PLAYER_CELL_DIMENSIONS
 } from '../constants/boardCell';
-import groundImg from '../images/ground.png';
+
+import dirtImg from '../images/grounds/dirt.png';
+import winterGroundImg from '../images/grounds/ice.png';
+import grassImg from '../images/grounds/grass.png';
+import brickImg from '../images/grounds/brick.png';
+import coldLavaImg from '../images/grounds/cold_lava.png';
+import hotLavaImg from '../images/grounds/hot_lava.png';
+
 import wallImg from '../images/wall.png';
 
-const BoardCell = ({ letter, mode }) => {
+const BoardCell = ({ letter, mode, dungeonLevel }) => {
   const determineColor = letter => {
     switch(letter) {
       case WALL:
-        return {
-          background: `url(${wallImg})`,
+        switch(dungeonLevel) {
+          case 1:
+            return {
+              background: `url(${wallImg})`,
+            }
+          default:
+            return {
+              background: `url(${wallImg})`,
+            }
         }
       case ROOM:
-        return {
-          background: `url(${groundImg})`,
-          backgroundSize: "cover",
-        }
-      case PLAYER:
-        return {
-          background: "#1e90ff"
+        switch(dungeonLevel) {
+          case 1:
+            return {
+              background: `url(${dirtImg})`,              
+              backgroundSize: "cover"
+            }
+            case 2:
+              return {
+                background: `url(${winterGroundImg})`,
+                backgroundSize: "cover"              
+              }
+            case 3:
+              return {
+                background: `url(${grassImg})`,
+                backgroundSize: "cover"              
+              }
+            case 4:
+              return {
+                background: `url(${brickImg})`,
+                backgroundSize: "cover"              
+              }
+            case 5:
+              return {
+                background: `url(${coldLavaImg})`,
+                backgroundSize: "cover"              
+              }
+            case 6:
+              return {
+                background: `url(${hotLavaImg})`,
+                backgroundSize: "cover"              
+              }
+          default:
+            return {
+              background: `url(${dirtImg})`,
+            }
         }
       default:
         return {
-          background: "#8b4513",
+          background: `url(${dirtImg})`,
+          backgroundSize: "cover",
         }
     }
   }

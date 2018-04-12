@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateGroundArmor, showGroundArmor } from '../actions';
 import EntityRenderer from './EntityRenderer';
-import ArmorCell from '../components/ArmorCell';
+import EntityCell from '../components/EntityCell';
 import ARMORS from '../constants/armors';
 import { rand } from '../util/util';
 
@@ -11,13 +11,15 @@ import shirtImg from '../images/armors/shirt.png';
 import winterCoatImg from '../images/armors/winter_coat.png';
 import chainMailImg from '../images/armors/chain_mail.png';
 import fullPlateArmorImg from '../images/armors/full_plate_armor.png';
+import daedricArmorImg from '../images/armors/daedric_armor.png';
 
 const ARMOR_IMAGES = [
   cleanDiaperImg,
   shirtImg,
   winterCoatImg,
   chainMailImg,
-  fullPlateArmorImg
+  fullPlateArmorImg,
+  daedricArmorImg
 ]
 
 class Armor extends Component {
@@ -75,16 +77,14 @@ class Armor extends Component {
   
   render() {
     const { groundArmor } = this.props;
-    console.log(groundArmor);
     const isEmpty = Object.keys(groundArmor.armor).length === 0;
-    console.log(!isEmpty && groundArmor.show);
     return !isEmpty && groundArmor.show 
     ? (
       <EntityRenderer 
         entityCoords={groundArmor.armor.coordinates}
       >
-        <ArmorCell style={{
-          background: `url(${ARMOR_IMAGES[groundArmor.armor.id - 1]})`,
+        <EntityCell style={{
+          background: `url(${ARMOR_IMAGES[groundArmor.armor.id - 1]}) center center`,
           backgroundSize: "cover",
           position: "absolute",
         }} />

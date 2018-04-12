@@ -181,15 +181,16 @@ class Player extends Component {
     const { 
       enemies, 
       dispatch, 
-      weapon, 
+      weapon,
+      armor,
       playerHp, 
       playerLevel,
       playerExp,
     } = this.props;
     const enemy = enemies.find(enemy => enemy.id === enemyId)
-    const newPlayerHp = playerHp - enemy.attack[rand(0, 1)];    
+    const newPlayerHp = playerHp - (enemy.attack[rand(0, 1)] - armor.defense);    
     const newEnemyHp = enemy.hp - weapon.damage * playerLevel;    
-    const newPlayerExp = playerExp + enemy.level * 10
+    const newPlayerExp = playerExp + enemy.level * 4
     
     // Decide randomly who attacks first
     const turn = rand(1, 2);
@@ -215,18 +216,21 @@ class Player extends Component {
 
     if(newPlayerExp > 99) {
       dispatch(updatePlayerLevel(playerLevel + 1))
-      dispatch(updatePlayerExp(0))      
+      dispatch(updatePlayerExp(0))
     }
 
     if(newPlayerHp < 1) {
       alert("You dead :(")
-    } 
+    }
+
   }
 
   drinkPotion(potionId) {
-    const { playerHp, potions, dispatch } = this.props;
-    const potion = potions.find(pot => pot.id === potionId)    
-    const hpFromPotion = potion.hp;
+    const { playerHp, potions, dispatch, playerLevel } = this.props;
+    const maxPlayerHp = 100 + playerLevel * 10;
+    const potion = potions.find(pot => pot.id === potionId)
+    const hpFromPotion = playerHp + potion.hp <= maxPlayerHp ? potion.hp : maxPlayerHp - playerHp
+
     dispatch(changeSound(drinkPotionSound))
     dispatch(playSound(true))
 
@@ -260,7 +264,13 @@ class Player extends Component {
 
   canMove = dir => {
     const [col, row] = this.props.playerPos
-    const { enemies, potions, groundArmor, groundWeapon, stairs } = this.props;
+    const { 
+      enemies, 
+      potions, 
+      groundArmor, 
+      groundWeapon, 
+      stairs 
+    } = this.props;
     const isWallThere = this.checkWall(dir, col, row);
     const enemyId = this.checkForEntities(dir, enemies, col, row)
     const potionId = this.checkForEntities(dir, potions, col, row);
@@ -347,6 +357,7 @@ const mapStateToProps = state => ({
   armor: state.player.armor,
   playerLevel: state.player.level,
   playerHp: state.player.hp,
+  playerMaxHp: state.player.maxHp,
   playerExp: state.player.exp,
   mode: state.displayMode,
   enemies: state.enemies.items,

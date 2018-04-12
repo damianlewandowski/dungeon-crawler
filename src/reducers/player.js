@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import {
   UPDATE_PLAYER_HP,
+  UPDATE_PLAYER_MAX_HP,
   UPDATE_PLAYER_POS,
   UPDATE_PLAYER_LEVEL,
   UPDATE_PLAYER_EXP,
@@ -24,6 +25,15 @@ const hp = (state = 100, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_HP:
       return action.payload;
+    default:
+      return state;
+  }
+}
+
+const maxHp = (state = 100, action) => {
+  switch(action.type) {
+    case UPDATE_PLAYER_LEVEL:
+      return action.payload * 10;
     default:
       return state;
   }
@@ -76,6 +86,7 @@ const alive = (state = true, action) => {
 
 export default combineReducers({
   hp,
+  maxHp,
   pos,
   level,
   exp,

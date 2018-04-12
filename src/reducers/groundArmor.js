@@ -5,7 +5,6 @@ import {
 } from '../actions';
 
 const show = (state = true, action) => {
-  console.log(action);
   switch(action.type) {
     case SHOW_GROUND_ARMOR:
       return action.payload;

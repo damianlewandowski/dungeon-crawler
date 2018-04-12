@@ -6,27 +6,32 @@ export default [
   },
   {
     id: 1,
-    name: "CLEAN_DIAPER",
+    name: "CLEAN DIAPER",
     defense: 2,
   },
   {
     id: 2,
     name: "SHIRT",
-    defense: 3,
+    defense: 5,
   },
   {
     id: 3,
     name: "WINTER COAT",
-    defense: 4,
+    defense: 8,
   },
   {
     id: 4,
     name: "CHAIN MAIL",
-    defense: 5,
+    defense: 15,
   },
   {
     id: 5,
-    name: "FULL_PLATE_ARMOR",
-    defense: 6,
+    name: "FULL PLATE ARMOR",
+    defense: 30,
   },
+  {
+    id: 6,
+    name: "DAEDRIC ARMOR",
+    defense: 60,
+  }
 ]

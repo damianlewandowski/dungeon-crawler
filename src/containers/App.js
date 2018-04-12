@@ -10,30 +10,7 @@ import PlayerStats from './PlayerStats';
 import ReactAudioPlayer from 'react-audio-player';
 import './App.css';
 
-// const LevelBar = ({ val, foreground, background }) => (
-//   <div
-//     style={{
-//       width: "100%",
-//       height: "5px",
-//       background: background,
-//       position: "relative",
-//       marginTop: "10px",
-//     }}
-//   >
 
-//     <div
-//       style={{
-//         height: "5px",
-//         width: `${val}%`,
-//         background: foreground,
-//         position: "absolute",
-//         top: 0,
-//         left: 0
-//       }}
-//     />
-
-//   </div>
-// )
 
 class App extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -66,6 +43,7 @@ class App extends React.Component {
 const mapStateToProps = ({ sound }) => ({
   playSound: sound.playSound,
   soundPath: sound.soundPath,
+  
 })
 
 export default connect(mapStateToProps)(App);

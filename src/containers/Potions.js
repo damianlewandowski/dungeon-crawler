@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { initializePotions } from '../actions';
 import EntityRenderer from './EntityRenderer';
-import PotionCell from '../components/PotionCell';
+import EntityCell from '../components/EntityCell';
+import potionImg from '../images/hp_potion.png';
 import { rand } from '../util/util';
 
 class Potions extends Component {
@@ -65,7 +66,11 @@ class Potions extends Component {
                 key={i}
                 entityCoords={potion.coordinates}
               >
-                <PotionCell />
+                <EntityCell style={{
+                  background: `url(${potionImg}) center center`,
+                  backgroundSize: "cover",
+                  position: "absolute",
+                }}/>
               </EntityRenderer>
             )
           })

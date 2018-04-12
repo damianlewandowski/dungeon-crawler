@@ -1,14 +1,14 @@
 import React from 'react';
 
-const StairsCell = ({ posStyle, style }) => {
+const EntityCell = ({ posStyle, style, children }) => {
   return (
     <li style={{
       ...style,
       ...posStyle
     }}>
-      
+      {children}
     </li>
   );
 };
 
-export default StairsCell;
+export default EntityCell;

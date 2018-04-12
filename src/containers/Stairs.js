@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateStairs } from '../actions';
 import EntityRenderer from './EntityRenderer';
-import StairsCell from '../components/StairsCell';
+import EntityCell from '../components/EntityCell';
 import { rand } from '../util/util';
 import stairsImg from '../images/stairs.png';
 
@@ -17,16 +17,23 @@ class Stairs extends Component {
       nextProps.stairs.show) ||
       nextProps.dungeonLevel !== this.props.dungeonLevel
     ) {
-      const stairs = this.spawnStairs(
-        nextProps.rooms, 
-        nextProps.playerPos, 
-        nextProps.enemies, 
-        nextProps.potions,
-        nextProps.dungeonLevel,
-        nextProps.groundArmor.armor,
-        nextProps.groundWeapon,
-      );
-      this.props.dispatch(updateStairs(stairs));
+      if(nextProps.dungeonLevel === 6) {
+        // Do not create stairs on the last dungeon level
+        const stairs = []
+        this.props.dispatch(updateStairs(stairs));
+      } else {
+        const stairs = this.spawnStairs(
+          nextProps.rooms, 
+          nextProps.playerPos, 
+          nextProps.enemies, 
+          nextProps.potions,
+          nextProps.dungeonLevel,
+          nextProps.groundArmor.armor,
+          nextProps.groundWeapon,
+        );
+        this.props.dispatch(updateStairs(stairs));
+      }
+      
     }
   }
 
@@ -83,15 +90,14 @@ class Stairs extends Component {
       <EntityRenderer 
         entityCoords={stairs.coordinates}
       >
-        <StairsCell style={{
-          background: `url(${stairsImg})`,
+        <EntityCell style={{
+          background: `url(${stairsImg}) center center`,
           backgroundSize: "cover",
           position: "absolute",
         }} 
         />
       </EntityRenderer> 
     )
-     
   }
 }
 

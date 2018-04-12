@@ -15,7 +15,6 @@ const styles = {
   display: "flex",
   flexWrap: "wrap",
   margin: "0 auto",
-  background: "crimson",
 }
 
 class BoardCells extends Component {
@@ -67,6 +66,7 @@ class BoardCells extends Component {
                     key={`${rowi}${coli}`}
                     letter={letter}
                     mode={mode}
+                    dungeonLevel={this.props.dungeonLevel}
                   />
                 )
               )
