@@ -8,7 +8,14 @@ const ModeBtn = ({ dispatch, mode }) => (
     mode === PLAYER_VIEW_MODE
       ? dispatch(changeDisplayMode(DUNGEON_VIEW_MODE))
       : dispatch(changeDisplayMode(PLAYER_VIEW_MODE))
-  }>
+  }
+    style={{
+      padding: "6px 12px",
+      background: "#fff",
+      color: "#111",
+      borderRadius: "4px",
+    }}
+  >
     Change View
   </button>
 )

@@ -15,7 +15,9 @@ import brickImg from '../images/grounds/brick.png';
 import coldLavaImg from '../images/grounds/cold_lava.png';
 import hotLavaImg from '../images/grounds/hot_lava.png';
 
-import wallImg from '../images/wall.png';
+import darkWallImg from '../images/walls/dark_wall.png';
+import iceWallImg from '../images/walls/icewall.png';
+import lightWallImg from '../images/walls/bright_wall.png';
 
 const BoardCell = ({ letter, mode, dungeonLevel }) => {
   const determineColor = letter => {
@@ -24,11 +26,16 @@ const BoardCell = ({ letter, mode, dungeonLevel }) => {
         switch(dungeonLevel) {
           case 1:
             return {
-              background: `url(${wallImg})`,
+              background: `url(${darkWallImg})`,
             }
+          case 2:
+            return {
+              background: `url(${iceWallImg})`,
+            }
+          
           default:
             return {
-              background: `url(${wallImg})`,
+              background: `url(${lightWallImg})`,
             }
         }
       case ROOM:

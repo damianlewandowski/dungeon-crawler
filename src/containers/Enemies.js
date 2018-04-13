@@ -82,9 +82,9 @@ class Enemies extends Component {
       case 3:
         return orc1Img
       case 4:
-        return orc2Img
-      case 5:
         return scorpionImg
+      case 5:
+        return orc2Img
       case 6:
         return lavaMonsterImg;
       default:

@@ -9,7 +9,8 @@ import { rand } from '../util/util';
 class Potions extends Component {
   componentWillReceiveProps(nextProps) {
     if(
-      (nextProps.potions.length === 0 &&
+      (nextProps.shouldInitialize &&
+      nextProps.potions.length === 0 &&
       nextProps.enemies.length !== 0 &&
       nextProps.playerPos.length !== 0) || 
       nextProps.dungeonLevel !== this.props.dungeonLevel
@@ -82,7 +83,8 @@ class Potions extends Component {
 
 const mapStateToProps = state => {
   return {
-    potions: state.potions,
+    potions: state.potions.items,
+    shouldInitialize: state.potions.shouldInitialize,
     enemies: state.enemies.items,
     playerPos: state.player.pos,
     rooms: state.rooms,

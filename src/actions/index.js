@@ -48,11 +48,6 @@ export const updatePlayerHp = hp => ({
   payload: hp
 })
 
-export const updatePlayerMaxHp = hp => ({
-  type: UPDATE_PLAYER_MAX_HP,
-  payload: hp
-})
-
 export const updatePlayerLevel = level => ({
   type: UPDATE_PLAYER_LEVEL,
   payload: level

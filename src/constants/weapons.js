@@ -1,7 +1,7 @@
 export default [
   {
     id: 0,
-    name: "STICK",
+    name: "BARE HANDS",
     damage: 1,
   },
   {

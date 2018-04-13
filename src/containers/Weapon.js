@@ -73,9 +73,11 @@ class Weapon extends Component {
         if(weaponX === armorX && weaponY === armorY) {
           continue;
         }
+
         return {
           ...WEAPONS[dungeonLevel],
-          coordinates: randCoords
+          coordinates: randCoords,
+          img: WEAPON_IMAGES[dungeonLevel - 1],
         }
       }
     }
@@ -90,7 +92,7 @@ class Weapon extends Component {
         entityCoords={groundWeapon.weapon.coordinates}
       >
         <EntityCell style={{
-          background: `url(${WEAPON_IMAGES[groundWeapon.weapon.id - 1]}) center center`,
+          background: `url(${groundWeapon.weapon.img}) center center`,
           backgroundSize: "cover",
           position: "absolute",
         }} />

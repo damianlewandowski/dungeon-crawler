@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import PlayerStatsList from '../components/PlayerStatsList';
 
+
 const mapStateToProps = ({ player }) => ({
   hp: player.hp,
   maxHp: player.maxHp,

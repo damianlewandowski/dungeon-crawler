@@ -6,7 +6,7 @@ import EntityCell from '../components/EntityCell';
 import ARMORS from '../constants/armors';
 import { rand } from '../util/util';
 
-import cleanDiaperImg from '../images/armors/clean_diaper.png';
+import cloakImg from '../images/armors/cloak.png';
 import shirtImg from '../images/armors/shirt.png';
 import winterCoatImg from '../images/armors/winter_coat.png';
 import chainMailImg from '../images/armors/chain_mail.png';
@@ -14,7 +14,7 @@ import fullPlateArmorImg from '../images/armors/full_plate_armor.png';
 import daedricArmorImg from '../images/armors/daedric_armor.png';
 
 const ARMOR_IMAGES = [
-  cleanDiaperImg,
+  cloakImg,
   shirtImg,
   winterCoatImg,
   chainMailImg,
@@ -69,7 +69,8 @@ class Armor extends Component {
 
         return {
           ...ARMORS[dungeonLevel],
-          coordinates: randCoords
+          coordinates: randCoords,
+          img: ARMOR_IMAGES[dungeonLevel - 1],
         }
       }
     }
@@ -84,7 +85,7 @@ class Armor extends Component {
         entityCoords={groundArmor.armor.coordinates}
       >
         <EntityCell style={{
-          background: `url(${ARMOR_IMAGES[groundArmor.armor.id - 1]}) center center`,
+          background: `url(${groundArmor.armor.img}) center center`,
           backgroundSize: "cover",
           position: "absolute",
         }} />

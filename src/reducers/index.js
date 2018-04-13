@@ -51,14 +51,27 @@ const displayMode = (state = PLAYER_VIEW_MODE, action) => {
   }
 }
 
-const potions = (state = [], action) => {
+const initialPotionsState = {
+  shouldInitialize: true,
+  items: []
+}
+const potions = (state = initialPotionsState, action) => {
   switch(action.type) {
     case INITIALIZE_POTIONS:
-      return action.payload
-    case DESTROY_POTION:
-      const drunkPotionId = action.payload;
-      return state
-        .filter(potion => potion.id !== drunkPotionId)
+      return {
+        shouldInitialize: false,
+        items: action.payload
+      }
+        
+    case DESTROY_POTION: {
+      const id = action.payload;
+      const newItems = state.items.filter(potion => potion.id !== id);
+      return {
+        ...state,
+        items: newItems
+      }
+    }
+    
     default:
       return state;
   }

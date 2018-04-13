@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import {
   UPDATE_PLAYER_HP,
-  UPDATE_PLAYER_MAX_HP,
   UPDATE_PLAYER_POS,
   UPDATE_PLAYER_LEVEL,
   UPDATE_PLAYER_EXP,
@@ -11,6 +10,8 @@ import {
 } from '../actions';
 import WEAPONS from '../constants/weapons';
 import ARMORS from '../constants/armors';
+import fistsImg from '../images/weapons/fists.png';
+import diaperImg from '../images/armors/clean_diaper.png';
 
 const pos = (state = [], action) => {
   switch(action.type) {
@@ -21,7 +22,7 @@ const pos = (state = [], action) => {
   }
 }
 
-const hp = (state = 100, action) => {
+const hp = (state = 110, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_HP:
       return action.payload;
@@ -30,10 +31,10 @@ const hp = (state = 100, action) => {
   }
 }
 
-const maxHp = (state = 100, action) => {
+const maxHp = (state = 110, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_LEVEL:
-      return action.payload * 10;
+      return 100 + action.payload * 10;
     default:
       return state;
   }
@@ -57,7 +58,11 @@ const exp = (state = 0, action) => {
   }
 }
 
-const weapon = (state = WEAPONS[0], action) => {
+const initialWeapon = {
+  ...WEAPONS[0],
+  img: fistsImg,
+}
+const weapon = (state = initialWeapon, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_WEAPON: 
       return action.payload;
@@ -66,7 +71,11 @@ const weapon = (state = WEAPONS[0], action) => {
   }
 }
 
-const armor = (state = ARMORS[0], action) => {
+const initialArmor = {
+  ...ARMORS[0],
+  img: diaperImg,
+}
+const armor = (state = initialArmor, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_ARMOR: 
       return action.payload;

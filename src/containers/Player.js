@@ -24,8 +24,6 @@ import {
   WALL 
 } from '../constants/boardCell';
 import { PLAYER_VIEW_MODE } from '../constants/displayModes';
-import ARMORS from '../constants/armors';
-import WEAPONS from '../constants/weapons';
 import drinkPotionSound from '../sounds/drink_potion.wav';
 import burpSound from '../sounds/burp.wav';
 import { rand } from '../util/util';
@@ -246,13 +244,13 @@ class Player extends Component {
     dispatch(destroyPotion(potionId));
   }
 
-  equipArmor(id) {
-    this.props.dispatch(updatePlayerArmor(ARMORS[id]))
+  equipArmor(armor) {
+    this.props.dispatch(updatePlayerArmor(armor))
     this.props.dispatch(showGroundArmor(false))    
   }
 
-  equipWeapon(id) {
-    this.props.dispatch(updatePlayerWeapon(WEAPONS[id]))
+  equipWeapon(weapon) {
+    this.props.dispatch(updatePlayerWeapon(weapon))
     this.props.dispatch(showGroundWeapon(false))    
   }
 
@@ -287,11 +285,11 @@ class Player extends Component {
     }
 
     if(groundArmorId) {
-      this.equipArmor(groundArmorId);
+      this.equipArmor(groundArmor);
     }
 
     if(groundWeaponId) {
-      this.equipWeapon(groundWeaponId);
+      this.equipWeapon(groundWeapon);
     }
 
     if(stairsId) {
@@ -361,7 +359,7 @@ const mapStateToProps = state => ({
   playerExp: state.player.exp,
   mode: state.displayMode,
   enemies: state.enemies.items,
-  potions: state.potions,
+  potions: state.potions.items,
   groundArmor: state.groundArmor.armor,
   groundWeapon: state.groundWeapon.weapon,
   stairs: state.stairs,

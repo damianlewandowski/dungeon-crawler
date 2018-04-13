@@ -1,12 +1,12 @@
 export default [
   {
     id: 0,
-    name: "DIRTY DIAPER",
+    name: "CLEAN DIAPER",
     defense: 1,
   },
   {
     id: 1,
-    name: "CLEAN DIAPER",
+    name: "CLOAK",
     defense: 2,
   },
   {

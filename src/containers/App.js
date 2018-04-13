@@ -33,8 +33,8 @@ class App extends React.Component {
         <div className="game-window">
           <PlayerStats />
           <Board/>
-          <ModeBtn />
         </div>
+          <ModeBtn />
       </div>
     );
   }

@@ -1,9 +1,12 @@
 .PlayerStatsList {
   display: flex;
-  justify-content: space-between;
+  align-items: space-between;
+  justify-content: space-around;
+  flex-direction: column;
+
   font-size: 0.7rem;
-  width: 400px;
-  margin: 5px auto;
+  width: 200px;
+  border: 1px solid #fff;
   color: #fff;
 }
 
@@ -14,4 +17,8 @@
 
 .PlayerStatsList li {
   text-align: center;
+}
+
+.PlayerStatsList p {
+  font-size: .5rem;
 }

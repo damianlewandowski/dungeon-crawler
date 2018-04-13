@@ -7,17 +7,33 @@ const PlayerStatsList = ({ hp, maxHp, level, weapon, armor, exp }) => {
     <ul className="PlayerStatsList">
       <li>
         <h4>HEALTH</h4>
+        <p>{hp} / {maxHp}</p>
         <Bar 
           val={(hp / maxHp) * 100}
           foreground="#f00"
           background="#fff"
         />
-        {hp}
+      </li>
+      <li>
+        <h4>EXP</h4>
+        <p>{exp} %</p>
+        <Bar 
+          val={exp}
+          foreground="linear-gradient(#00ff99, #00cd7b)"
+          background="#fff"
+        />
       </li>
       <li><h4>LEVEL</h4>{level}</li>
-      <li><h4>EXP</h4>{exp}</li>
-      <li><h4>WEAPON</h4>{weapon.name}</li>
-      <li><h4>ARMOR</h4>{armor.name}</li>
+      <li>
+        <h4>WEAPON</h4>
+        <img src={weapon.img} alt="weapon"/>
+        <p>{weapon.name}</p>
+      </li>
+      <li>
+        <h4>ARMOR</h4>
+        <img src={armor.img} alt="armor"/>
+        <p>{armor.name}</p>
+      </li>
     </ul>
   );
 };
