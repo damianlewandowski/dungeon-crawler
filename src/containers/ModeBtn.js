@@ -13,6 +13,7 @@ const ModeBtn = ({ dispatch, mode }) => (
       padding: "6px 12px",
       background: "#fff",
       color: "#111",
+      border: "1px solid #333",
       borderRadius: "4px",
     }}
   >

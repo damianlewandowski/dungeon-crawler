@@ -4,7 +4,8 @@ import player from './player';
 import sound from './sound';
 import groundArmor from './groundArmor';
 import groundWeapon from './groundWeapon';
-import { 
+import {
+  CLEAR_BOARD,
   UPDATE_BOARD, 
   UPDATE_ROOMS,
   UPDATE_DUNGEON_LEVEL,
@@ -17,7 +18,7 @@ import { PLAYER_VIEW_MODE } from '../constants/displayModes';
 
 const board = (state = [], action) => {
   switch(action.type) {
-    case UPDATE_BOARD: 
+    case UPDATE_BOARD:     
       return action.payload;
     default:
       return state;
@@ -71,7 +72,7 @@ const potions = (state = initialPotionsState, action) => {
         items: newItems
       }
     }
-    
+
     default:
       return state;
   }
@@ -95,7 +96,7 @@ const stairs = (state = initialStairsState, action) => {
   }
 }
 
-export default combineReducers({
+const appReducer = combineReducers({
   board,
   rooms,
   dungeonLevel,
@@ -108,3 +109,14 @@ export default combineReducers({
   stairs,
   sound
 })
+
+const initialState = appReducer({}, {});
+const rootReducer = (state, action) => {
+  if(action.type === CLEAR_BOARD) {
+    state = initialState;
+  }
+
+  return appReducer(state, action);
+}
+
+export default rootReducer;

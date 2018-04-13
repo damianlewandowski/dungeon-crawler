@@ -1,0 +1,17 @@
+.MenuLink {
+  font-size: 1.5rem;
+  color: blue;
+}
+
+li.MenuLink > a:hover {
+  color: #dc143c;
+  cursor: pointer;
+}
+
+.MenuLink:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.MenuLink img {
+  margin: 0 .1rem;
+}

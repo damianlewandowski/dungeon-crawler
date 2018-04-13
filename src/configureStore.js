@@ -1,5 +1,4 @@
 import { createStore, compose } from 'redux';
-// import logger from 'redux-logger';
 import rootReducer from './reducers';
 
 const configureStore = () => {

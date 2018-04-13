@@ -6,7 +6,7 @@ import {
   UPDATE_PLAYER_EXP,
   UPDATE_PLAYER_WEAPON,
   UPDATE_PLAYER_ARMOR,
-  KILL_PLAYER
+  KILL_PLAYER,
 } from '../actions';
 import WEAPONS from '../constants/weapons';
 import ARMORS from '../constants/armors';
@@ -15,7 +15,7 @@ import diaperImg from '../images/armors/clean_diaper.png';
 
 const pos = (state = [], action) => {
   switch(action.type) {
-    case UPDATE_PLAYER_POS: 
+    case UPDATE_PLAYER_POS:
       return action.payload;
     default:
       return state;

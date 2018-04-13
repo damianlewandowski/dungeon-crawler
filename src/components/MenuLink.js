@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import flame from '../images/flame.gif';
-import './MenuItem.css';
+import { Link } from 'react-router-dom';
 
-class MenuItem extends Component {
+import './MenuLink.css';
+
+class MenuLink extends Component {
   state = {
     showFlames: false,
   }
@@ -16,22 +18,23 @@ class MenuItem extends Component {
   }
 
   render() {
-    const { text } = this.props;
+    const { text, to } = this.props;
     const { showFlames } = this.state;
     const { toggleFlames } = this;
     return (
-      <li className="MenuItem">
+      <li className="MenuLink">
         {showFlames ? <img width="15" src={flame} alt="flame"/> : null}
-          <span
+          <Link
+            to={to}
             onMouseEnter={toggleFlames}
             onMouseLeave={toggleFlames}
           >
             {text}
-          </span>
+          </Link>
         {showFlames ? <img width="15" src={flame} alt="flame"/> : null}
       </li>
     )
   }
 }
 
-export default MenuItem;
+export default MenuLink;

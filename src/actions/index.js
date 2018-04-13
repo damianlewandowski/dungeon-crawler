@@ -1,3 +1,4 @@
+export const CLEAR_BOARD = "CLEAR_BOARD";
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const UPDATE_ROOMS = "UPDATE_ROOMS";
 export const UPDATE_DUNGEON_LEVEL = "UPDATE_DUNGEON_LEVEL";
@@ -32,6 +33,10 @@ export const UPDATE_STAIRS = "UPDATE_STAIRS";
 
 export const PLAY_SOUND = "PLAY_SOUND";
 export const CHANGE_SOUND = "CHANGE_SOUND";
+
+export const clearBoard = () => ({
+  type: CLEAR_BOARD,
+})
 
 export const updateBoard = board => ({
   type: UPDATE_BOARD,

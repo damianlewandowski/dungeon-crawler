@@ -29,6 +29,11 @@ import burpSound from '../sounds/burp.wav';
 import { rand } from '../util/util';
 
 class Player extends Component {
+  componentWillUnmount() {
+    this.shouldCheck = false;
+  }
+  
+  shouldCheck = true;
   keyState = {}
 
   checkPressedKeys() {
@@ -60,15 +65,19 @@ class Player extends Component {
         )
       }
     }
-
-    setTimeout(() => {
-      this.checkPressedKeys()
-    }, 50);
+    if(this.shouldCheck) {
+      setTimeout(() => this.checkPressedKeys(), 40)
+    }
   }
 
   componentDidMount() {
     document.addEventListener("keydown", e => {
-      this.keyState[e.keyCode] = true;
+      const code = e.keyCode;
+      // Prevent scrolling using arrow keys
+      if(code === 37 || code === 38 || code === 39 || code === 40) {
+        e.preventDefault();
+      }
+      this.keyState[code] = true;
     })
 
     document.addEventListener("keyup", e => {
@@ -289,6 +298,7 @@ class Player extends Component {
     }
 
     if(groundWeaponId) {
+      console.log(groundWeaponId);
       this.equipWeapon(groundWeapon);
     }
 
@@ -363,7 +373,7 @@ const mapStateToProps = state => ({
   groundArmor: state.groundArmor.armor,
   groundWeapon: state.groundWeapon.weapon,
   stairs: state.stairs,
-  dungeonLevel: state.dungeonLevel
+  dungeonLevel: state.dungeonLevel,
 })
 
 export default connect(mapStateToProps)(Player);

@@ -1,34 +1,39 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import MenuItem from './MenuItem';
+import React from 'react';
+import MenuLink from './MenuLink';
 import './Menu.css';
 
-const OPTIONS = [
-  "start",
-  "instructions",
-  "options",
-  "leaderboard",
-]
+const OPTIONS = {
+  "start": "game_window",
+  "instructions": "instructions",
+  "options": "options",
+  "leaderboard": "leaderboard"
+}
 
 const Menu = () => {
-  const options = OPTIONS.map(option => (
-    <MenuItem 
-      key={option}
-      text={option}
+  const options = Object.keys(OPTIONS).map(optionKey => (
+    <MenuLink
+      to={OPTIONS[optionKey]}
+      key={optionKey}
+      text={optionKey}
     />
   ))
-
-  const handleHover = () => {
-
-  }
 
   return (
     <div className="Menu">
       <h1>Dungeon Crawler</h1>
       <ul className="options">
-        {options
+        {
+          options
         }
-        <li><a href="#">See Code</a></li>
+        <li>
+          <a 
+            href="https://github.com/damianlewandowski/dungeon-crawler"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            See Code
+          </a>
+        </li>
       </ul>
     </div>
   );

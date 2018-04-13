@@ -41,9 +41,9 @@ class Enemies extends Component {
           if(playerX !== bossX && playerY !== bossY) {
             enemies.push({
               id: "BOSS",
-              hp: 400,
-              attack: [50, 70],
-              level: 10,
+              hp: 1000,
+              attack: [80, 120],
+              level: 30,
               coordinates: randCoords
             })
             break;
@@ -59,9 +59,9 @@ class Enemies extends Component {
         if(playerX !== enemyX && playerY !== enemyY) {
           const enemy = {
             id: `${enemyId}${i}`,
-            maxHp: ENEMIES[dungeonLevel - 1].level * 10,
-            hp: ENEMIES[dungeonLevel - 1].level * 10,
-            attack: [ENEMIES[dungeonLevel - 1].level * 3, ENEMIES[dungeonLevel - 1].level * 5],
+            maxHp: ENEMIES[dungeonLevel - 1].level * 15,
+            hp: ENEMIES[dungeonLevel - 1].level * 15,
+            attack: [ENEMIES[dungeonLevel - 1].level * 2, ENEMIES[dungeonLevel - 1].level * 4],
             level: ENEMIES[dungeonLevel - 1].level,
             coordinates: randCoords
           }

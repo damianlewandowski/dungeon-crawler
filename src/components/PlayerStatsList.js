@@ -2,7 +2,7 @@ import React from 'react';
 import Bar from '../components/Bar';
 import './PlayerStatsList.css';
 
-const PlayerStatsList = ({ hp, maxHp, level, weapon, armor, exp }) => {
+const PlayerStatsList = ({ hp, maxHp, level, weapon, armor, exp, dungeonLevel }) => {
   return (
     <ul className="PlayerStatsList">
       <li>
@@ -34,6 +34,7 @@ const PlayerStatsList = ({ hp, maxHp, level, weapon, armor, exp }) => {
         <img src={armor.img} alt="armor"/>
         <p>{armor.name}</p>
       </li>
+      <li><h4>DUNGEON LEVEL</h4>{dungeonLevel}</li>      
     </ul>
   );
 };

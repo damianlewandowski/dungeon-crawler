@@ -15,8 +15,8 @@
   width: 90%;
   padding: 3rem 1rem;
   
-  border: 1px solid #fff;
-  box-shadow: 1px 1px 20px #fff;
+  border-radius: 4px;
+  box-shadow: 1px 1px 40px 2px #fff;
   background: #000000;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */

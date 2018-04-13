@@ -43,7 +43,6 @@ export default class Dungeon {
       for(let j = x; j < x + width; j++) {
         // Make sure rooms are not touching each other
         if(
-          i === 1 || j === 1 ||
           (board[i] && board[i][j] && board[i][j] !== WALL) ||
           (board[i] && board[i][j - 1] && board[i][j - 1] !== WALL) ||
           (board[i] && board[i][j + 1] && board[i][j + 1] !== WALL) ||
@@ -58,7 +57,6 @@ export default class Dungeon {
         }
       }
     }
-
     return true;
   }
 
@@ -152,8 +150,8 @@ export default class Dungeon {
     // Carve first room and create next one based on first ones' position
     const width = rand(5, 12);
     const height = rand(5, 12);
-    const x = rand(0, boardCopy[0].length - width);
-    const y = rand(0, boardCopy.length - height);
+    const x = rand(2, boardCopy[0].length - width - 2);
+    const y = rand(2, boardCopy.length - height - 2);
     this.rooms.push(
       this.buildRoom(
         boardCopy,

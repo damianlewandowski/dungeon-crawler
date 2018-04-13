@@ -3,16 +3,19 @@ import { connect } from 'react-redux';
 import {
   playSound
 } from '../actions';
-// import Menu from './Menu';
 import Board from './Board';
 import ModeBtn from './ModeBtn';
 import PlayerStats from './PlayerStats';
 import ReactAudioPlayer from 'react-audio-player';
+import { clearBoard } from '../actions';
 import './App.css';
 
-
-
 class App extends React.Component {
+  componentWillUnmount() {
+    this.props.dispatch(clearBoard());
+  }
+  
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.playSound) {
       this.playSound(nextProps.soundPath)
@@ -28,13 +31,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        {/* <Menu /> */}
-        <ReactAudioPlayer ref={element => { this.sound = element }}/>
+        <ReactAudioPlayer ref={element => { this.sound = element }}/> 
+
         <div className="game-window">
           <PlayerStats />
           <Board/>
         </div>
-          <ModeBtn />
+        <ModeBtn />
       </div>
     );
   }

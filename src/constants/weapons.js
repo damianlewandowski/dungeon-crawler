@@ -29,4 +29,9 @@ export default [
     name: "FIRE SWORD",
     damage: 6,
   },
+  {
+    id: 6,
+    name: "DAEDRIC SWORD",
+    damage: 7,
+  },
 ]
