@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto.ttf");
+}
+
+.Instructions {
+  padding: 2rem;
+  font-family: Roboto, sans-serif;
+}
+
+.Instructions h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}

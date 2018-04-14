@@ -21,11 +21,16 @@ class MenuLink extends Component {
     const { text, to } = this.props;
     const { showFlames } = this.state;
     const { toggleFlames } = this;
+    
     return (
       <li className="MenuLink">
         {showFlames ? <img width="15" src={flame} alt="flame"/> : null}
+          
           <Link
-            to={to}
+            to={{
+              pathname: to,
+              state: to === "instructions" ? { modal: true } : null
+            }}
             onMouseEnter={toggleFlames}
             onMouseLeave={toggleFlames}
           >

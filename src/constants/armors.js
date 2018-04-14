@@ -11,12 +11,12 @@ export default [
   },
   {
     id: 2,
-    name: "SHIRT",
+    name: "WINTER COAT",
     defense: 5,
   },
   {
     id: 3,
-    name: "WINTER COAT",
+    name: "MAGIC SHIRT",
     defense: 8,
   },
   {

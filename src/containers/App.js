@@ -11,16 +11,15 @@ import { clearBoard } from '../actions';
 import './App.css';
 
 class App extends React.Component {
-  componentWillUnmount() {
-    this.props.dispatch(clearBoard());
-  }
-  
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.playSound) {
       this.playSound(nextProps.soundPath)
       this.props.dispatch(playSound(false));
     }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearBoard());
   }
 
   playSound = (src) => {

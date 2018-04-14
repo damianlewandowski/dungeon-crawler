@@ -3,6 +3,10 @@
   color: blue;
 }
 
+.MenuLink a {
+  text-decoration: none;
+}
+
 li.MenuLink > a:hover {
   color: #dc143c;
   cursor: pointer;

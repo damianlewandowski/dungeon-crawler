@@ -22,7 +22,7 @@ const pos = (state = [], action) => {
   }
 }
 
-const hp = (state = 110, action) => {
+const hp = (state = 150, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_HP:
       return action.payload;
@@ -31,10 +31,10 @@ const hp = (state = 110, action) => {
   }
 }
 
-const maxHp = (state = 110, action) => {
+const maxHp = (state = 150, action) => {
   switch(action.type) {
     case UPDATE_PLAYER_LEVEL:
-      return 100 + action.payload * 10;
+      return state + action.payload * 20;
     default:
       return state;
   }

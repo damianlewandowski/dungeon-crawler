@@ -26,12 +26,12 @@ const PlayerStatsList = ({ hp, maxHp, level, weapon, armor, exp, dungeonLevel })
       <li><h4>LEVEL</h4>{level}</li>
       <li>
         <h4>WEAPON</h4>
-        <img src={weapon.img} alt="weapon"/>
+        <img src={weapon.img} width="40" height="40" alt="weapon"/>
         <p>{weapon.name}</p>
       </li>
       <li>
         <h4>ARMOR</h4>
-        <img src={armor.img} alt="armor"/>
+        <img src={armor.img} width="40" height="40" alt="armor"/>
         <p>{armor.name}</p>
       </li>
       <li><h4>DUNGEON LEVEL</h4>{dungeonLevel}</li>      

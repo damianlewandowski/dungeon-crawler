@@ -195,8 +195,10 @@ class Player extends Component {
       playerExp,
     } = this.props;
     const enemy = enemies.find(enemy => enemy.id === enemyId)
-    const newPlayerHp = playerHp - (enemy.attack[rand(0, 1)] - armor.defense);    
-    const newEnemyHp = enemy.hp - weapon.damage * playerLevel;    
+    const newPlayerHp = playerHp - (
+      enemy.attack[rand(0, 1)] - armor.defense * 2
+    );    
+    const newEnemyHp = enemy.hp - weapon.damage * playerLevel / 2;    
     const newPlayerExp = playerExp + enemy.level * 4
     
     // Decide randomly who attacks first
@@ -233,8 +235,7 @@ class Player extends Component {
   }
 
   drinkPotion(potionId) {
-    const { playerHp, potions, dispatch, playerLevel } = this.props;
-    const maxPlayerHp = 100 + playerLevel * 10;
+    const { playerHp, potions, dispatch, maxPlayerHp } = this.props;
     const potion = potions.find(pot => pot.id === potionId)
     const hpFromPotion = playerHp + potion.hp <= maxPlayerHp ? potion.hp : maxPlayerHp - playerHp
 
@@ -365,7 +366,7 @@ const mapStateToProps = state => ({
   armor: state.player.armor,
   playerLevel: state.player.level,
   playerHp: state.player.hp,
-  playerMaxHp: state.player.maxHp,
+  maxPlayerHp: state.player.maxHp,
   playerExp: state.player.exp,
   mode: state.displayMode,
   enemies: state.enemies.items,

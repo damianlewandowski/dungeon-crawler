@@ -61,7 +61,7 @@ class Enemies extends Component {
             id: `${enemyId}${i}`,
             maxHp: ENEMIES[dungeonLevel - 1].level * 15,
             hp: ENEMIES[dungeonLevel - 1].level * 15,
-            attack: [ENEMIES[dungeonLevel - 1].level * 2, ENEMIES[dungeonLevel - 1].level * 4],
+            attack: [ENEMIES[dungeonLevel - 1].level * 4, ENEMIES[dungeonLevel - 1].level * 6],
             level: ENEMIES[dungeonLevel - 1].level,
             coordinates: randCoords
           }
