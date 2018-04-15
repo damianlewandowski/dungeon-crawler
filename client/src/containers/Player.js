@@ -3,7 +3,9 @@ import PlayerCell from '../components/PlayerCell';
 import { connect } from 'react-redux';
 import { 
   updatePlayerPos,
+  updateKeyState,
   updatePlayerHp,
+  killPlayer,
   updatePlayerExp,
   updatePlayerLevel,
   updatePlayerWeapon,
@@ -34,31 +36,29 @@ class Player extends Component {
   }
   
   shouldCheck = true;
-  keyState = {}
 
   checkPressedKeys() {
-    const { playerPos, dispatch } = this.props;
+    const { playerPos, dispatch, keyState } = this.props;
     const [x, y] = playerPos;
-
-    if(this.keyState[37]) {
+    if(keyState[37]) {
       if(this.canMove(37)) {
         dispatch(
           updatePlayerPos([x - 1, y])
         )
       }      
-    } else if(this.keyState[38]) {
+    } else if(keyState[38]) {
       if(this.canMove(38)) {
         dispatch(
           updatePlayerPos([x, y - 1])
         )
       }   
-    } else if(this.keyState[39]) {
+    } else if(keyState[39]) {
       if(this.canMove(39)) {
         dispatch(
           updatePlayerPos([x + 1, y])
         )
       }
-    } else if(this.keyState[40]) {
+    } else if(keyState[40]) {
       if(this.canMove(40)) {
         dispatch(
           updatePlayerPos([x, y + 1])
@@ -71,17 +71,20 @@ class Player extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+
     document.addEventListener("keydown", e => {
       const code = e.keyCode;
       // Prevent scrolling using arrow keys
       if(code === 37 || code === 38 || code === 39 || code === 40) {
         e.preventDefault();
       }
-      this.keyState[code] = true;
+      dispatch(updateKeyState({ [code]: true }));
     })
 
     document.addEventListener("keyup", e => {
-      this.keyState[e.keyCode] = false;
+      const code = e.keyCode;      
+      dispatch(updateKeyState({ [code]: false }));
     })
 
     this.checkPressedKeys();
@@ -229,7 +232,7 @@ class Player extends Component {
     }
 
     if(newPlayerHp < 1) {
-      alert("You dead :(")
+      dispatch(killPlayer())
     }
 
   }
@@ -299,7 +302,6 @@ class Player extends Component {
     }
 
     if(groundWeaponId) {
-      console.log(groundWeaponId);
       this.equipWeapon(groundWeapon);
     }
 
@@ -362,6 +364,7 @@ const mapStateToProps = state => ({
   rooms: state.rooms,
   board: state.board,
   playerPos: state.player.pos,
+  keyState: state.player.keyState,
   weapon: state.player.weapon,
   armor: state.player.armor,
   playerLevel: state.player.level,

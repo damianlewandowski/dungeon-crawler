@@ -9,7 +9,6 @@ class ModalSwitch extends Component {
 
   componentWillUpdate(nextProps) {
     const { location } = this.props;
-    console.log(this.props);
     // set previousLocation if props.location is not modal
     if (
       nextProps.history.action !== "POP" &&
@@ -26,7 +25,6 @@ class ModalSwitch extends Component {
       location.state.modal &&
       this.previousLocation !== location
     );
-    console.log(isModal);
 
     return (
       <div>

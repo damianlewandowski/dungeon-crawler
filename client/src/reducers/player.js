@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import {
   UPDATE_PLAYER_HP,
   UPDATE_PLAYER_POS,
+  UPDATE_KEY_STATE,
   UPDATE_PLAYER_LEVEL,
   UPDATE_PLAYER_EXP,
   UPDATE_PLAYER_WEAPON,
@@ -17,6 +18,18 @@ const pos = (state = [], action) => {
   switch(action.type) {
     case UPDATE_PLAYER_POS:
       return action.payload;
+    default:
+      return state;
+  }
+}
+
+const keyState = (state = {}, action) => {
+  switch(action.type) {
+    case UPDATE_KEY_STATE:
+      return {
+       ...state,
+       ...action.payload, 
+      };
     default:
       return state;
   }
@@ -87,7 +100,7 @@ const armor = (state = initialArmor, action) => {
 const alive = (state = true, action) => {
   switch(action.type) {
     case KILL_PLAYER:
-      return action.payload;
+      return false;
     default:
       return state
   }
@@ -101,5 +114,6 @@ export default combineReducers({
   exp,
   weapon,
   armor,
-  alive
+  alive,
+  keyState
 })

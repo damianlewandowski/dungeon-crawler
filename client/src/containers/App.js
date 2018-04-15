@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import {
-  playSound
+  playSound,
 } from '../actions';
-import Board from './Board';
-import ModeBtn from './ModeBtn';
-import PlayerStats from './PlayerStats';
 import ReactAudioPlayer from 'react-audio-player';
 import { clearBoard } from '../actions';
 import './App.css';
+import GameWindow from './GameWindow';
 
 class App extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -28,24 +27,25 @@ class App extends React.Component {
   }
   
   render() {
+    const { alive } = this.props;
+
     return (
       <div className="container">
         <ReactAudioPlayer ref={element => { this.sound = element }}/> 
-
-        <div className="game-window">
-          <PlayerStats />
-          <Board/>
-        </div>
-        <ModeBtn />
+        {
+          alive 
+            ? <GameWindow />
+            : <Redirect to="/" />
+        }
       </div>
     );
   }
 }  
 
-const mapStateToProps = ({ sound }) => ({
+const mapStateToProps = ({ sound, player }) => ({
   playSound: sound.playSound,
   soundPath: sound.soundPath,
-  
+  alive: player.alive
 })
 
 export default connect(mapStateToProps)(App);

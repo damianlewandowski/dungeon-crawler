@@ -1,0 +1,20 @@
+.show-menu-btn {
+  font-family: Montserrat;
+  color: #fff;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.show-menu-btn:hover {
+  margin: 0 2px;
+  border: 1px solid #fff;
+}
+
+.show-menu-btn span {
+  margin: 0 4px;
+}

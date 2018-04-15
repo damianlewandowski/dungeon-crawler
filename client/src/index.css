@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("./fonts/Roboto.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +22,6 @@ body {
   background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);
   /* background: linear-gradient(to right, #070000, #4C0001, #070000);  */
   width: 100vw;
-  height: 100vh;
 }
 
 @media only screen and (min-width: 768px) {

@@ -10,9 +10,10 @@ export const UPDATE_PLAYER_EXP = "UPDATE_PLAYER_EXP"
 export const UPDATE_PLAYER_WEAPON = "UPDATE_PLAYER_WEAPON"
 export const UPDATE_PLAYER_ARMOR = "UPDATE_PLAYER_ARMOR"
 export const UPDATE_PLAYER_POS = "UPDATE_PLAYER_POS";
+export const UPDATE_KEY_STATE = "UPDATE_KEY_STATE";
 export const KILL_PLAYER = "KILL_PLAYER";
 
-export const CHANGE_DISPLAY_MODE = "CHANGE_DISPLAY_MODE";
+export const TOGGLE_DISPLAY_MODE = "TOGGLE_DISPLAY_MODE";
 
 export const UPDATE_ENEMY_HP = "UPDATE_ENEMY_HP";
 export const KILL_ENEMY = "KILL_ENEMY";
@@ -80,14 +81,17 @@ export const updatePlayerPos = position => ({
   payload: position
 })
 
-export const killPlayer = position => ({
-  type: KILL_PLAYER,
-  payload: position
+export const updateKeyState = keyState => ({
+  type: UPDATE_KEY_STATE,
+  payload: keyState,
 })
 
-export const changeDisplayMode = mode => ({
-  type: CHANGE_DISPLAY_MODE,
-  payload: mode
+export const killPlayer = () => ({
+  type: KILL_PLAYER,
+})
+
+export const toggleDisplayMode = () => ({
+  type: TOGGLE_DISPLAY_MODE,
 })
 
 export const updateEnemyHp = (id, hp) => ({

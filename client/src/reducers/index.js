@@ -9,12 +9,12 @@ import {
   UPDATE_BOARD, 
   UPDATE_ROOMS,
   UPDATE_DUNGEON_LEVEL,
-  CHANGE_DISPLAY_MODE,
+  TOGGLE_DISPLAY_MODE,
   INITIALIZE_POTIONS,
   DESTROY_POTION,
   UPDATE_STAIRS,
 } from '../actions';
-import { PLAYER_VIEW_MODE } from '../constants/displayModes';
+import { PLAYER_VIEW_MODE, DUNGEON_VIEW_MODE } from '../constants/displayModes';
 
 const board = (state = [], action) => {
   switch(action.type) {
@@ -45,8 +45,8 @@ const dungeonLevel = (state = 1, action) => {
 
 const displayMode = (state = PLAYER_VIEW_MODE, action) => {
   switch(action.type) {
-    case CHANGE_DISPLAY_MODE:
-      return action.payload;
+    case TOGGLE_DISPLAY_MODE:
+      return state === PLAYER_VIEW_MODE ? DUNGEON_VIEW_MODE : PLAYER_VIEW_MODE;
     default:
       return state;
   }
