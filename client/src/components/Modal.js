@@ -1,7 +1,6 @@
 import React from 'react';
-import Instructions from './Instructions';
 
-export default ({ match, history }) => {
+export default ({ match, history, children }) => {
   const back = e => {
     e.stopPropagation();
     history.goBack();
@@ -31,8 +30,7 @@ export default ({ match, history }) => {
           borderRadius: 4
         }}
       >
-        <Instructions />
-        <h2 style={{textAlign: "center", marginBottom: "3rem"}}>Good Luck!</h2>
+        {children}
       </div>
     </div>
   )

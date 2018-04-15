@@ -17,20 +17,30 @@ class MenuLink extends Component {
     )
   }
 
+  determineModal(text) {
+    if(text === "instructions") {
+      return { instructionsModal: true }
+    } else if(text === "leaderboard") {
+      return { leaderboardModal: true }
+    }
+    return null;
+  }
+
   render() {
     const { text, to } = this.props;
     const { showFlames } = this.state;
     const { toggleFlames } = this;
-    
+    const toObj = {
+      pathname: to,
+      state: this.determineModal(text)
+    }
+
     return (
       <li className="MenuLink">
         {showFlames ? <img width="15" src={flame} alt="flame"/> : null}
           
           <Link
-            to={{
-              pathname: to,
-              state: to === "instructions" ? { modal: true } : null
-            }}
+            to={toObj}
             onMouseEnter={toggleFlames}
             onMouseLeave={toggleFlames}
           >
