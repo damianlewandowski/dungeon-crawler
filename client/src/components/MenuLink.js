@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import flame from '../images/flame.gif';
 import { Link } from 'react-router-dom';
 
 import './MenuLink.css';
 
 class MenuLink extends Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
+  }
+
   state = {
     showFlames: false,
   }

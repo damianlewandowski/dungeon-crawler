@@ -17,6 +17,10 @@ ul {
   list-style: none;
 }
 
+a {
+  color: #fff;
+}
+
 body {
   background: #070707;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);

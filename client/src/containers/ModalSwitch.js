@@ -4,6 +4,8 @@ import Menu from '../components/Menu';
 import App from './App';
 import Modal from '../components/Modal';
 import Instructions from '../components/Instructions';
+import Leaderboard from '../components/Leaderboard';
+import Name from './Name';
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -12,8 +14,10 @@ class ModalSwitch extends Component {
     const { location } = this.props;
     // set previousLocation if props.location is not modal
     if (
-      nextProps.history.action !== "POP" &&
-      (!location.state || !location.state.modal)
+      nextProps.history.action !== "POP" &&(
+        (!location.state || !location.state.instructionsModal) ||
+        (!location.state || !location.state.leaderboardModal)
+      )
     ) {
       this.previousLocation = this.props.location;
     }
@@ -37,7 +41,8 @@ class ModalSwitch extends Component {
         <Switch location={(isInstructionsModal || isLeaderboardModal) ? this.previousLocation : location}>
           <Route exact path="/" component={Menu} />
           <Route path="/instructions" component={Menu} />
-          <Route path="/leaderboard" component={Menu} />
+          <Route path="/leaderboard/:lvl?" component={Menu} />
+          <Route path="/name" component={Name} />
           <Route path="/game_window" component={App} />
         </Switch>
         {
@@ -57,21 +62,20 @@ class ModalSwitch extends Component {
         }
         {
           isLeaderboardModal 
-            ? <Route 
-                path="/leaderboard" 
+            ? <Route
+                path="/leaderboard/:lvl?" 
                 render={
                   (props) => (
                     <Modal {...props}>
                       <div>
-                        LEADERBOARD BRO
+                        <Leaderboard {...props} />
                       </div>
                     </Modal>
                   )
                 }
               />
             : null
-        }
-        
+        }          
       </div>
     );
   }

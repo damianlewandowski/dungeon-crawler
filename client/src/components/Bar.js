@@ -12,7 +12,6 @@ const Bar = ({ val, foreground, background, styles }) => (
       ...styles
     }}
   >
-
     <div
       style={{
         height: "5px",
@@ -23,7 +22,6 @@ const Bar = ({ val, foreground, background, styles }) => (
         left: 0
       }}
     />
-
   </div>
 )
 

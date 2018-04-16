@@ -1,11 +1,11 @@
 .PlayerStatsList {
-  font-family: PermanentMarker;
+  font-family: "Permanent Marker";
   display: flex;
   align-items: space-between;
   justify-content: space-around;
   flex-direction: column;
 
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   width: 200px;
   padding: 0 1rem;
   border: 1px solid #fff;
@@ -23,7 +23,8 @@
 }
 
 .PlayerStatsList p {
-  font-size: .4rem;
+  font-size: .35rem;
+  font-family: Montserrat;
 }
 
 @media only screen and (max-width: 767px) {
@@ -32,7 +33,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1rem;
+    font-size: 0.65rem;    
+    padding: .5rem;
   }
 
   .PlayerStatsList h4 {
@@ -50,7 +52,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: space-between;
-    width: 15%;
+    width: 13%;
   }
 
   .PlayerStatsList p {
@@ -60,10 +62,10 @@
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .PlayerStatsList {
-    font-size: .9rem;
+    font-size: .55rem;
   }
 
   .PlayerStatsList li p {
-    font-size: .6rem;
+    font-size: .45rem;
   }
 }

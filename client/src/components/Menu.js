@@ -4,7 +4,7 @@ import './Menu.css';
 
 // "menu option": "url_address"
 const OPTIONS = {
-  "start": "game_window",
+  "start": "name",
   "instructions": "instructions",
   "options": "options",
   "leaderboard": "leaderboard"

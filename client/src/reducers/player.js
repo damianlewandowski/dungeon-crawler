@@ -8,6 +8,7 @@ import {
   UPDATE_PLAYER_WEAPON,
   UPDATE_PLAYER_ARMOR,
   KILL_PLAYER,
+  UPDATE_NAME
 } from '../actions';
 import WEAPONS from '../constants/weapons';
 import ARMORS from '../constants/armors';
@@ -106,6 +107,15 @@ const alive = (state = true, action) => {
   }
 }
 
+const name = (state = "", action) => {
+  switch(action.type) {
+    case UPDATE_NAME:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   hp,
   maxHp,
@@ -115,5 +125,6 @@ export default combineReducers({
   weapon,
   armor,
   alive,
-  keyState
+  keyState,
+  name
 })

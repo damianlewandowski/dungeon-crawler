@@ -34,16 +34,17 @@ class Enemies extends Component {
       const [playerX, playerY] = playerPos;
 
       // Spawn boss at the last level       
-      if(dungeonLevel === 5 && enemyId === 0) {
+      if(dungeonLevel === 1 && enemyId === 0) {
         while(true) {
           const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
           const [bossX, bossY] = randCoords;
           if(playerX !== bossX && playerY !== bossY) {
             enemies.push({
               id: "BOSS",
-              hp: 1000,
-              attack: [80, 120],
-              level: 30,
+              maxHp: 1,
+              hp: 1,
+              attack: [1, 2],
+              level: 25,
               coordinates: randCoords
             })
             break;

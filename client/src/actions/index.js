@@ -12,11 +12,13 @@ export const UPDATE_PLAYER_ARMOR = "UPDATE_PLAYER_ARMOR"
 export const UPDATE_PLAYER_POS = "UPDATE_PLAYER_POS";
 export const UPDATE_KEY_STATE = "UPDATE_KEY_STATE";
 export const KILL_PLAYER = "KILL_PLAYER";
+export const UPDATE_NAME = "UPDATE_NAME";
 
 export const TOGGLE_DISPLAY_MODE = "TOGGLE_DISPLAY_MODE";
 
 export const UPDATE_ENEMY_HP = "UPDATE_ENEMY_HP";
 export const KILL_ENEMY = "KILL_ENEMY";
+export const KILL_BOSS = "KILL_BOSS";
 export const UPDATE_ENEMY_LEVEL = "UPDATE_ENEMY_LEVEL";
 export const UPDATE_ENEMY_COORDS = "UPDATE_ENEMY_COORDS";
 export const INITIALIZE_ENEMIES = "INITIALIZE_ENEMIES";
@@ -34,6 +36,8 @@ export const UPDATE_STAIRS = "UPDATE_STAIRS";
 
 export const PLAY_SOUND = "PLAY_SOUND";
 export const CHANGE_SOUND = "CHANGE_SOUND";
+
+export const UPDATE_TICKER = "UPDATE_TICKER";
 
 export const clearBoard = () => ({
   type: CLEAR_BOARD,
@@ -81,6 +85,11 @@ export const updatePlayerPos = position => ({
   payload: position
 })
 
+export const updateName = name => ({
+  type: UPDATE_NAME,
+  payload: name,
+})
+
 export const updateKeyState = keyState => ({
   type: UPDATE_KEY_STATE,
   payload: keyState,
@@ -102,6 +111,10 @@ export const updateEnemyHp = (id, hp) => ({
 export const killEnemy = id => ({
   type: KILL_ENEMY,
   payload: id
+})
+
+export const killBoss = () => ({
+  type: KILL_BOSS,
 })
 
 export const updateEnemyLevel = lvl => ({
@@ -166,4 +179,8 @@ export const changeSound = soundPath => ({
 
 export const updateDungeonLevel = () => ({
   type: UPDATE_DUNGEON_LEVEL,
+})
+
+export const updateTicker = () => ({
+  type: UPDATE_TICKER
 })

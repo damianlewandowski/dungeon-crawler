@@ -18,6 +18,7 @@ import {
   showGroundArmor,
   showGroundWeapon,
   updateDungeonLevel,
+  killBoss,
 } from '../actions';
 import { BOARD_SIZE } from '../constants/board';
 import { 
@@ -210,6 +211,7 @@ class Player extends Component {
     if(turn === 1) {
       // Check if enemy was killed
       if(newEnemyHp < 1) {
+        console.log(newEnemyHp);
         dispatch(killEnemy(enemyId));      
         dispatch(updatePlayerExp(newPlayerExp))            
       } else {
@@ -235,6 +237,11 @@ class Player extends Component {
       dispatch(killPlayer())
     }
 
+    if(enemyId === "BOSS") {
+      if(newEnemyHp < 1) {
+        dispatch(killBoss())
+      }
+    }
   }
 
   drinkPotion(potionId) {

@@ -13,6 +13,8 @@ import {
   INITIALIZE_POTIONS,
   DESTROY_POTION,
   UPDATE_STAIRS,
+  UPDATE_TICKER,
+  KILL_BOSS
 } from '../actions';
 import { PLAYER_VIEW_MODE, DUNGEON_VIEW_MODE } from '../constants/displayModes';
 
@@ -96,6 +98,24 @@ const stairs = (state = initialStairsState, action) => {
   }
 }
 
+const seconds = (state = 0, action) => {
+  switch(action.type) {
+    case UPDATE_TICKER:
+      return state + 1;
+    default:
+      return state;
+  }
+}
+
+const bossAlive = (state = true, action) => {
+  switch(action.type) {
+    case KILL_BOSS:
+      return false;
+    default:
+      return state;
+  }
+}
+
 const appReducer = combineReducers({
   board,
   rooms,
@@ -107,7 +127,9 @@ const appReducer = combineReducers({
   groundArmor,
   groundWeapon,
   stairs,
-  sound
+  sound,
+  seconds,
+  bossAlive
 })
 
 const initialState = appReducer({}, {});
