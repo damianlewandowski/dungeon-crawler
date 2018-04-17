@@ -7,6 +7,9 @@ const Instructions = () => {
       <h1>Instructions</h1>
         <ol>
           <li>
+            <p>Use arrow keys to move around and fight enemies.</p>
+          </li>
+          <li>
             <p>Defeat boss at the 6th dungeon level.</p>
           </li>
           <li>

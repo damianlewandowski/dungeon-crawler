@@ -65,7 +65,7 @@ class Name extends Component {
             value="Play"
           />
         </form>
-        {fireRedirect ? <Redirect to="/game_window" /> : null }
+        {fireRedirect ? <Redirect to={`${process.env.PUBLIC_URL}/game_window`} /> : null }
       </div>
     )
   }

@@ -39,16 +39,16 @@ class ModalSwitch extends Component {
     return (
       <div>
         <Switch location={(isInstructionsModal || isLeaderboardModal) ? this.previousLocation : location}>
-          <Route exact path="/" component={Menu} />
-          <Route path="/instructions" component={Menu} />
-          <Route path="/leaderboard/:lvl?" component={Menu} />
-          <Route path="/name" component={Name} />
-          <Route path="/game_window" component={App} />
+        <Route exact path={`${process.env.PUBLIC_URL}/`} component={Menu} />
+          <Route path={`${process.env.PUBLIC_URL}/instructions`} component={Menu} />
+          <Route path={`${process.env.PUBLIC_URL}/leaderboard`} component={Menu} />
+          <Route path={`${process.env.PUBLIC_URL}/name`} component={Name} />
+          <Route path={`${process.env.PUBLIC_URL}/game_window`} component={App} />
         </Switch>
         {
           isInstructionsModal 
             ? <Route 
-                path="/instructions" 
+                path={`${process.env.PUBLIC_URL}/instructions`} 
                 render={
                   (props) => (
                     <Modal {...props}>
@@ -63,7 +63,7 @@ class ModalSwitch extends Component {
         {
           isLeaderboardModal 
             ? <Route
-                path="/leaderboard/:lvl?" 
+                path={`${process.env.PUBLIC_URL}/leaderboard`}
                 render={
                   (props) => (
                     <Modal {...props}>
@@ -75,7 +75,7 @@ class ModalSwitch extends Component {
                 }
               />
             : null
-        }          
+        }   
       </div>
     );
   }
