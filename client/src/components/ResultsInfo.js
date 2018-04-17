@@ -4,31 +4,6 @@ import GameWindowBtn from './GameWindowBtn';
 import './ResultsInfo.css';
 
 class ResultsInfo extends Component {
-  componentDidMount() {
-    // If boss is dead make a post request to update the leaderboard
-    if(!this.props.bossAlive) {
-      const data = {
-        name: this.props.playerName,
-        level: this.props.level,
-        weapon: this.props.weapon,
-        armor: this.props.armor,
-        time: this.props.time
-      }
-  
-      fetch("https://cors-anywhere.herokuapp.com/https://dungeon-crawler-api.herokuapp.com/leaderboard", {
-        method: "POST",
-        headers: new Headers({  
-          "Content-Type":"application/json",
-        }),
-        body: JSON.stringify(data),
-      })
-      .then(res => res.text())
-      .then(res => console.log(res))
-      .catch(console.log("Something went wrong with making post request :("))
-    }
-  }
-
-
   render() {
   const {
       level, 

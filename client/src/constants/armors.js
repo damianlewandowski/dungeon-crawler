@@ -12,26 +12,26 @@ export default [
   {
     id: 2,
     name: "WINTER COAT",
-    defense: 5,
+    defense: 4,
   },
   {
     id: 3,
     name: "MAGIC SHIRT",
-    defense: 8,
+    defense: 6,
   },
   {
     id: 4,
     name: "CHAIN MAIL",
-    defense: 15,
+    defense: 10,
   },
   {
     id: 5,
     name: "FULL PLATE ARMOR",
-    defense: 30,
+    defense: 15,
   },
   {
     id: 6,
     name: "DAEDRIC ARMOR",
-    defense: 60,
+    defense: 30,
   }
 ]

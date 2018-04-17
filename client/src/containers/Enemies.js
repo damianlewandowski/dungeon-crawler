@@ -34,17 +34,18 @@ class Enemies extends Component {
       const [playerX, playerY] = playerPos;
 
       // Spawn boss at the last level       
-      if(dungeonLevel === 1 && enemyId === 0) {
+      if(dungeonLevel === 6 && enemyId === 0) {
+        console.log("Spawning boss");
         while(true) {
           const randCoords = coords.splice(rand(0, coords.length - 1), 1)[0]
           const [bossX, bossY] = randCoords;
           if(playerX !== bossX && playerY !== bossY) {
             enemies.push({
               id: "BOSS",
-              maxHp: 1,
-              hp: 1,
-              attack: [1, 2],
-              level: 25,
+              maxHp: 1000,
+              hp: 1000,
+              attack: [80, 120],
+              level: 20,
               coordinates: randCoords
             })
             break;
@@ -60,9 +61,9 @@ class Enemies extends Component {
         if(playerX !== enemyX && playerY !== enemyY) {
           const enemy = {
             id: `${enemyId}${i}`,
-            maxHp: ENEMIES[dungeonLevel - 1].level * 15,
-            hp: ENEMIES[dungeonLevel - 1].level * 15,
-            attack: [ENEMIES[dungeonLevel - 1].level * 4, ENEMIES[dungeonLevel - 1].level * 6],
+            maxHp: ENEMIES[dungeonLevel - 1].level * 10,
+            hp: ENEMIES[dungeonLevel - 1].level * 10,
+            attack: [ENEMIES[dungeonLevel - 1].level * 5, ENEMIES[dungeonLevel - 1].level * 7],
             level: ENEMIES[dungeonLevel - 1].level,
             coordinates: randCoords
           }

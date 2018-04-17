@@ -16,7 +16,7 @@ export default [
   },
   {
     id: 3,
-    name: "SHORT_SWORD",
+    name: "SHORT SWORD",
     damage: 4,
   },
   {

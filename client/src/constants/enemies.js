@@ -5,22 +5,22 @@ export default [
   },
   {
     id: 1,
-    level: 3,
+    level: 2,
   },
   {
     id: 2,
-    level: 5,
+    level: 3,
   },
   {
     id: 3,
-    level: 7,
+    level: 4,
   },
   {
     id: 4,
-    level: 10,
+    level: 8,
   },
   {
     id: 5,
-    level: 15,
+    level: 12,
   },
 ]

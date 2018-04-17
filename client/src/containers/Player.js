@@ -203,15 +203,15 @@ class Player extends Component {
       enemy.attack[rand(0, 1)] - armor.defense * 2
     );    
     const newEnemyHp = enemy.hp - weapon.damage * playerLevel / 2;    
-    const newPlayerExp = playerExp + enemy.level * 4
     
+    let newPlayerExp = 0;
     // Decide randomly who attacks first
     const turn = rand(1, 2);
     // Player attacks first
     if(turn === 1) {
       // Check if enemy was killed
       if(newEnemyHp < 1) {
-        console.log(newEnemyHp);
+        newPlayerExp = playerExp + enemy.level * 4
         dispatch(killEnemy(enemyId));      
         dispatch(updatePlayerExp(newPlayerExp))            
       } else {
@@ -223,6 +223,7 @@ class Player extends Component {
       dispatch(updateEnemyHp(enemyId, newEnemyHp))
       dispatch(updatePlayerHp(newPlayerHp));
       if(newEnemyHp < 1) {
+        newPlayerExp = playerExp + enemy.level * 4
         dispatch(updatePlayerExp(newPlayerExp))    
         dispatch(killEnemy(enemyId))
       }

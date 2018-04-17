@@ -25,15 +25,45 @@ class Name extends Component {
     const { handleChange, handleSubmit } = this;
 
     return (
-      <div>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "100%",
+          textAlign: "center"
+        }}
+      >
         <form 
           onSubmit={handleSubmit}
         >
-          <label>
-            Name:
-            <input onChange={handleChange} type="text" value={name} placeholder="Your name..."/>
-          </label>
-          <input type="submit" value="Play"/>
+
+          <input 
+            style={{
+              fontSize: "1.5rem",                
+              border: "1px solid #eee",                         
+              borderRadius: "4px",
+              padding: ".8rem 1rem",
+              marginLeft: ".5rem",                
+            }}
+            onChange={handleChange} 
+            type="text" value={name} 
+            placeholder="Your name..."
+          />
+
+          <input 
+            style={{
+              fontSize: "1.5rem",
+              background: "#373737",
+              color: "#fff",
+              border: "1px solid #131313",
+              borderRadius: "4px",              
+              padding: ".8rem 1rem",
+            }}
+            type="submit" 
+            value="Play"
+          />
         </form>
         {fireRedirect ? <Redirect to="/game_window" /> : null }
       </div>

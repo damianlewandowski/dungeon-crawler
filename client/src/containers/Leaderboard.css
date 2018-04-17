@@ -1,0 +1,25 @@
+table, td, th {
+  border: 1px solid #111;
+}
+
+td, th {
+  padding: .5rem;
+}
+
+tr:nth-child(even) {background-color: #ccc;}
+
+.Leaderboard {
+  padding: 1rem;
+  font-family: Montserrat;
+}
+
+.Leaderboard h1 {
+  text-align: center;
+  margin-bottom: .5rem;
+}
+
+.Leaderboard-table {
+  border-collapse: collapse;
+  text-align: center;
+  margin: 0 auto;
+}

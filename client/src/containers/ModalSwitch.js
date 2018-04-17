@@ -4,7 +4,7 @@ import Menu from '../components/Menu';
 import App from './App';
 import Modal from '../components/Modal';
 import Instructions from '../components/Instructions';
-import Leaderboard from '../components/Leaderboard';
+import Leaderboard from './Leaderboard';
 import Name from './Name';
 
 class ModalSwitch extends Component {

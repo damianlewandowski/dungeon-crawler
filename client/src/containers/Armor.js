@@ -15,8 +15,8 @@ import daedricArmorImg from '../images/armors/daedric_armor.png';
 
 const ARMOR_IMAGES = [
   cloakImg,
-  shirtImg,
   winterCoatImg,
+  shirtImg,
   chainMailImg,
   fullPlateArmorImg,
   daedricArmorImg

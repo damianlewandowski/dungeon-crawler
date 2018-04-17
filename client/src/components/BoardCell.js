@@ -13,7 +13,7 @@ import winterGroundImg from '../images/grounds/ice.png';
 import grassImg from '../images/grounds/grass.png';
 import brickImg from '../images/grounds/brick.png';
 import coldLavaImg from '../images/grounds/cold_lava.png';
-import hotLavaImg from '../images/grounds/hot_lava.png';
+import stoneFloorImg from '../images/grounds/stone_floor.png';
 
 import darkWallImg from '../images/walls/dark_wall.png';
 import iceWallImg from '../images/walls/icewall.png';
@@ -67,7 +67,7 @@ const BoardCell = ({ letter, mode, dungeonLevel }) => {
               }
             case 6:
               return {
-                background: `url(${hotLavaImg})`,
+                background: `url(${stoneFloorImg})`,
                 backgroundSize: "cover"              
               }
           default:
