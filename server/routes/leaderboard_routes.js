@@ -19,12 +19,13 @@ module.exports = function(app, db) {
       armor: req.body.armor,
       time: req.body.time,
     }
+    
     db.collection("leaderboard")
-      .insert(data, (err, res) => {
+      .insert(data, (err, result) => {
         if(err) {
           console.log(err);
         } else {
-          res.send("Data was updated succesfully.")
+          res.json("Data was entered succesfully.")
         }
       })
   })

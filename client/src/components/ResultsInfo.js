@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GameWindowBtn from './GameWindowBtn';
-import './Results.css';
+import './ResultsInfo.css';
 
-class Results extends Component {
+class ResultsInfo extends Component {
   componentDidMount() {
     // If boss is dead make a post request to update the leaderboard
     if(!this.props.bossAlive) {
       const data = {
+        name: this.props.playerName,
         level: this.props.level,
         weapon: this.props.weapon,
         armor: this.props.armor,
         time: this.props.time
       }
-      fetch("localhost:3001/leaderboard", {
-        body: JSON.stringify(data),
+  
+      fetch("https://cors-anywhere.herokuapp.com/https://dungeon-crawler-api.herokuapp.com/leaderboard", {
         method: "POST",
-        headers: {  
-          "Content-type":"application/json"  
-        },
-        mode: 'no-cors',
-      }).then(res => console.log(res.json()))
+        headers: new Headers({  
+          "Content-Type":"application/json",
+        }),
+        body: JSON.stringify(data),
+      })
+      .then(res => res.text())
+      .then(res => console.log(res))
+      .catch(console.log("Something went wrong with making post request :("))
     }
   }
+
 
   render() {
   const {
@@ -35,9 +40,9 @@ class Results extends Component {
     } = this.props;
 
     return (
-      <div className="Results">
+      <div className="ResultsInfo">
         <h1>{bossAlive ? "You died! :(" : "Congratulations! You beat the freaking diablo!" }</h1>
-        <h3>It took you {time} to reach {dungeonLevel}</h3>
+        <h3>It took you {time} to reach {dungeonLevel} dungeon level.</h3>
         <h5>Your level: <strong>{level}</strong></h5>
         <p>You had <strong>{weapon}</strong> and <strong>{armor}</strong></p>
         <GameWindowBtn>
@@ -51,4 +56,4 @@ class Results extends Component {
   }
 }
 
-export default Results;
+export default ResultsInfo;
